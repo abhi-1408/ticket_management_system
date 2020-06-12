@@ -5,6 +5,7 @@ export const initState = {
 	users: [{}],
 	ticket_detail: [{}],
 	logged_in: false,
+	wrong_cred: false,
 };
 
 export default (state = initState, {type, payload}) => {
@@ -17,10 +18,25 @@ export default (state = initState, {type, payload}) => {
 				all_ticket: payload,
 			};
 
-		case LOGIN:
+		case 'LOGIN_SUCCESS':
 			return {
 				...state,
 				logged_in: true,
+				wrong_cred: false,
+			};
+
+		case 'LOGIN_FAILURE':
+			return {
+				...state,
+				logged_in: false,
+				wrong_cred: true,
+			};
+
+		case 'LOGOUT_USER':
+			return {
+				...state,
+				logged_in: false,
+				wrong_cred: false,
 			};
 
 		default:

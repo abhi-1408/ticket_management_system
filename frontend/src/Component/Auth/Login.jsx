@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {loginUser} from '../../Redux/action';
+import {Redirect} from 'react-router-dom';
 
 export const Login = (props) => {
 	let dispatch = useDispatch();
+	const {logged_in, wrong_cred} = useSelector((state) => state);
 
 	const [username, setUserName] = useState('');
 	const [password, setPassword] = useState('');
@@ -20,22 +22,27 @@ export const Login = (props) => {
 		dispatch(loginUser({username: username, password: password}));
 	}
 
-	return (
-		<div>
-			Login
-			<input
-				name="username"
-				value={username}
-				onChange={(e) => handleChg(e)}
-				placeholder="username"
-			/>
-			<input
-				name="password"
-				value={password}
-				onChange={(e) => handleChg(e)}
-				placeholder="password"
-			/>
-			<button onClick={() => handleSubmit()}>LOGIN</button>
-		</div>
-	);
+	if (logged_in) {
+		return <Redirect to="/user" />;
+	} else {
+		return (
+			<div>
+				Login
+				<input
+					name="username"
+					value={username}
+					onChange={(e) => handleChg(e)}
+					placeholder="username"
+				/>
+				<input
+					name="password"
+					value={password}
+					onChange={(e) => handleChg(e)}
+					placeholder="password"
+				/>
+				<div>{wrong_cred ? 'wrong credentials' : ''}</div>
+				<button onClick={() => handleSubmit()}>LOGIN</button>
+			</div>
+		);
+	}
 };
