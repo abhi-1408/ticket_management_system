@@ -7,6 +7,7 @@ export const initState = {
 	user_tickets: [{}],
 	logged_in: false,
 	wrong_cred: false,
+	ticket_details: [],
 };
 
 export default (state = initState, {type, payload}) => {
@@ -41,12 +42,19 @@ export default (state = initState, {type, payload}) => {
 				wrong_cred: false,
 				current_userid: '',
 				user_tickets: [{}],
+				ticket_details: [],
+			};
+
+		case 'SPECIFIC_USER_TICKET_SUCCESS':
+			return {
+				...state,
+				user_tickets: payload,
 			};
 
 		case 'SPECIFIC_TICKET_SUCCESS':
 			return {
 				...state,
-				user_tickets: payload,
+				ticket_details: payload,
 			};
 
 		default:

@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchSpecificUserTicket} from '../../Redux/action';
+import {Link} from 'react-router-dom';
 
 export const Users = (props) => {
 	const {logged_in, current_userid, user_tickets} = useSelector(
@@ -33,7 +34,9 @@ export const Users = (props) => {
 							user_tickets.map((ele) => {
 								return (
 									<tr>
-										<td>{ele[3]}</td>
+										<td>
+											<Link to={`/target/${ele[3]}`}> {ele[3]}</Link>
+										</td>
 										<td>{ele[5]}</td>
 									</tr>
 								);

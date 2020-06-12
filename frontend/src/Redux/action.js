@@ -26,7 +26,7 @@ export const fetchAllTicket = (payload) => {
 
 export const specificUserTicketSuccess = (payload) => {
 	return {
-		type: 'SPECIFIC_TICKET_SUCCESS',
+		type: 'SPECIFIC_USER_TICKET_SUCCESS',
 		payload: payload,
 	};
 };
@@ -43,6 +43,29 @@ export const fetchSpecificUserTicket = (payload) => {
 				return res;
 			})
 			.then((res) => dispatch(specificUserTicketSuccess(res.data.user_tickets)))
+			.catch((err) => console.log('cant send data to create', err));
+	};
+};
+
+export const specificTicketSuccess = (payload) => {
+	return {
+		type: 'SPECIFIC_TICKET_SUCCESS',
+		payload: payload,
+	};
+};
+
+export const fetchSpecificTicket = (payload) => {
+	console.log('fetch specific ticket', payload);
+	return (dispatch) => {
+		return axios({
+			url: 'http://127.0.0.1:5000/ticket/' + payload,
+			method: 'GET',
+		})
+			.then((res) => {
+				console.log('data got from specific fetch user ticket request: ', res);
+				return res;
+			})
+			.then((res) => dispatch(specificTicketSuccess(res.data.ticket_detail)))
 			.catch((err) => console.log('cant send data to create', err));
 	};
 };

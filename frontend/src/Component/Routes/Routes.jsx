@@ -5,7 +5,7 @@ import {store} from '../../Redux/store';
 import {Dashboard} from '../Admin/Dashboard';
 import {Login} from '../Auth/Login';
 import {Logout} from '../Auth/Logout';
-
+import {TicketView} from '../Common/TicketView';
 import {Users} from '../User/Users';
 
 export const Routes = (props) => {
@@ -29,6 +29,11 @@ export const Routes = (props) => {
 					path="/user/:id"
 					exact
 					render={(props) => <Users {...props} />}
+				/>
+				<Route
+					path="/target/:id"
+					exact
+					render={(props) => <TicketView {...props} />}
 				/>
 				<Route render={() => <h2>NOT FOUND</h2>} />
 			</Switch>
