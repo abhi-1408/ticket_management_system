@@ -15,8 +15,11 @@ export const fetchAllTicket = (payload) => {
 			url: 'http://127.0.0.1:5000/alltickets',
 			method: 'GET',
 		})
-			.then((res) => console.log('data got from axios request: ', res))
-			.then((res) => dispatch(allTicketSuccess(res.all_ticket)))
+			.then((res) => {
+				console.log('data got from axios request: ', res);
+				return res;
+			})
+			.then((res) => dispatch(allTicketSuccess(res.data.all_ticket)))
 			.catch((err) => console.log('cant send data to create', err));
 	};
 };
