@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchSpecificUserTicket} from '../../Redux/action';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 
 export const Users = (props) => {
 	const {logged_in, current_userid, user_tickets} = useSelector(
@@ -19,8 +19,9 @@ export const Users = (props) => {
 			<>
 				<h2>logged in user: {current_userid}</h2>
 				<button onClick={() => handleClick()}>
-					fetch user {current_userid}{' '}
+					fetch user tickets{current_userid}{' '}
 				</button>
+				<Link to={`/create/${current_userid}`}>CREATE NEW TICKET</Link>
 
 				<table class="table">
 					<thead class="thead-dark">

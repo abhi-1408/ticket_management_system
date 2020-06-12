@@ -26,7 +26,9 @@ export const TicketView = (props) => {
 		<>
 			<br />
 			TICKET DETAILS
-			<button onClick={() => handleClick()}>get specific ticket</button>
+			<button onClick={() => handleClick()}>
+				get specific ticket {props.match.params.id}
+			</button>
 			{ticket_details &&
 				ticket_details.map((ele, ind) => {
 					return (

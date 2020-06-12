@@ -85,3 +85,39 @@ def add_comment(ticket_id):
     mysql.connection.commit()
     cur.close()
     return json.dumps({"ticket_id":ticket_id})
+
+
+@app.route('/addticket/<user_id>',methods=['POST'])
+def add_new_ticket(user_id):
+    subject=request.json['subject']
+    cur=mysql.connection.cursor()
+    stmt="INSERT INTO ticket(user_id,subject) VALUES(%s,%s)"
+    data=(user_id,subject)
+    cur.execute(stmt,data)
+    mysql.connection.commit()
+    cur.close()
+
+
+    # for getting the ticket_id of the newly created ticket
+    cur1=mysql.connection.cursor()
+    stmt1="SELECT * FROM ticket WHERE subject=%s;"
+    cur1.execute(stmt1,[subject])
+    result=cur1.fetchall()
+    data1=[]
+    for row in result:
+        data1.append(row)
+
+    cur1.close()
+
+
+    description=request.json['description']
+    cur2=mysql.connection.cursor()
+    stmt="INSERT INTO data(ticket_id,description) VALUES(%s,%s)"
+    data=(data1[0][0],description)
+    cur2.execute(stmt,data)
+    mysql.connection.commit()
+    cur2.close()
+
+
+    return json.dumps({"user":user_id,"added_ticket_id":data1[0][0]})
+

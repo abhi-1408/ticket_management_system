@@ -47,6 +47,23 @@ export const fetchSpecificUserTicket = (payload) => {
 	};
 };
 
+export const createTicket = (payload) => {
+	console.log('create ticket clicked', payload);
+	return (dispatch) => {
+		return axios({
+			url: 'http://127.0.0.1:5000/addticket/' + payload['user_id'],
+			method: 'POST',
+			data: payload['data'],
+		})
+			.then((res) => {
+				console.log('data got from create ticket: ', res);
+				return res;
+			})
+			.then((res) => dispatch(fetchSpecificUserTicket(payload['user_id'])))
+			.catch((err) => console.log('cant send data to create', err));
+	};
+};
+
 export const specificTicketSuccess = (payload) => {
 	return {
 		type: 'SPECIFIC_TICKET_SUCCESS',

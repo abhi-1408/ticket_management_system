@@ -6,17 +6,22 @@ import {Dashboard} from '../Admin/Dashboard';
 import {Login} from '../Auth/Login';
 import {Logout} from '../Auth/Logout';
 import {TicketView} from '../Common/TicketView';
+import {Create} from '../Common/Create';
+
 import {Users} from '../User/Users';
 
 export const Routes = (props) => {
-	const {logged_in} = useSelector((state) => state);
+	const {logged_in, current_userid} = useSelector((state) => state);
 	return (
 		<>
 			<br />
 			{!logged_in ? (
 				<Link to="/login">LOGIN</Link>
 			) : (
-				<Link to="/logout">LOGOUT</Link>
+				<>
+					<Link to="/logout">LOGOUT</Link>
+					<Link to={`/user/${current_userid}`}>USER HOME</Link>
+				</>
 			)}
 			<br />
 			<Link to="/all_tickets">ALL TICKETS</Link>
@@ -24,6 +29,11 @@ export const Routes = (props) => {
 			<Switch>
 				<Route path="/login" exact render={(props) => <Login />} />
 				<Route path="/logout" exact render={(props) => <Logout {...props} />} />
+				<Route
+					path="/create/:id"
+					exact
+					render={(props) => <Create {...props} />}
+				/>
 				<Route path="/all_tickets" exact render={(props) => <Dashboard />} />
 				<Route
 					path="/user/:id"
