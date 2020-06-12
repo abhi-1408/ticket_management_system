@@ -25,7 +25,11 @@ export const Routes = (props) => {
 				<Route path="/login" exact render={(props) => <Login />} />
 				<Route path="/logout" exact render={(props) => <Logout {...props} />} />
 				<Route path="/all_tickets" exact render={(props) => <Dashboard />} />
-				<Route path="/user" exact render={(props) => <Users />} />
+				<Route
+					path="/user/:id"
+					exact
+					render={(props) => <Users {...props} />}
+				/>
 				<Route render={() => <h2>NOT FOUND</h2>} />
 			</Switch>
 		</>

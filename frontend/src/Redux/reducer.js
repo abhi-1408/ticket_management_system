@@ -3,7 +3,8 @@ import {ALL_TICKETS, LOGIN} from './actionTypes';
 export const initState = {
 	all_ticket: [{}],
 	users: [{}],
-	ticket_detail: [{}],
+	current_userid: '',
+	user_tickets: [{}],
 	logged_in: false,
 	wrong_cred: false,
 };
@@ -21,6 +22,7 @@ export default (state = initState, {type, payload}) => {
 		case 'LOGIN_SUCCESS':
 			return {
 				...state,
+				current_userid: payload,
 				logged_in: true,
 				wrong_cred: false,
 			};
@@ -37,6 +39,14 @@ export default (state = initState, {type, payload}) => {
 				...state,
 				logged_in: false,
 				wrong_cred: false,
+				current_userid: '',
+				user_tickets: [{}],
+			};
+
+		case 'SPECIFIC_TICKET_SUCCESS':
+			return {
+				...state,
+				user_tickets: payload,
 			};
 
 		default:

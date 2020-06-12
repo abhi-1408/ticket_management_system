@@ -24,10 +24,33 @@ export const fetchAllTicket = (payload) => {
 	};
 };
 
+export const specificUserTicketSuccess = (payload) => {
+	return {
+		type: 'SPECIFIC_TICKET_SUCCESS',
+		payload: payload,
+	};
+};
+
+export const fetchSpecificUserTicket = (payload) => {
+	console.log('fetch specific ticket', payload);
+	return (dispatch) => {
+		return axios({
+			url: 'http://127.0.0.1:5000/' + payload + '/ticket',
+			method: 'GET',
+		})
+			.then((res) => {
+				console.log('data got from specific fetch user ticket request: ', res);
+				return res;
+			})
+			.then((res) => dispatch(specificUserTicketSuccess(res.data.user_tickets)))
+			.catch((err) => console.log('cant send data to create', err));
+	};
+};
+
 export const loginSuccess = (payload) => {
 	return {
 		type: 'LOGIN_SUCCESS',
-		payload: true,
+		payload: payload,
 	};
 };
 
@@ -58,9 +81,9 @@ export const loginUser = (payload) => {
 				.then((res) => {
 					console.log('res is', res);
 					// const {data} = res;
-					let {logged_in} = res.data;
+					let {logged_in, user_id} = res.data;
 					if (logged_in) {
-						dispatch(loginSuccess(logged_in));
+						dispatch(loginSuccess(user_id));
 					} else {
 						dispatch(loginFailure());
 					}

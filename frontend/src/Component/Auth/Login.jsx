@@ -5,7 +5,7 @@ import {Redirect} from 'react-router-dom';
 
 export const Login = (props) => {
 	let dispatch = useDispatch();
-	const {logged_in, wrong_cred} = useSelector((state) => state);
+	const {logged_in, wrong_cred, current_userid} = useSelector((state) => state);
 
 	const [username, setUserName] = useState('');
 	const [password, setPassword] = useState('');
@@ -23,7 +23,8 @@ export const Login = (props) => {
 	}
 
 	if (logged_in) {
-		return <Redirect to="/user" />;
+		let url = '/user/' + current_userid;
+		return <Redirect to={url} />;
 	} else {
 		return (
 			<div>
