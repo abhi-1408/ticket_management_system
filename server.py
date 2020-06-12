@@ -11,6 +11,7 @@ app.config['MYSQL_DB']= 'ticktest'
 
 mysql=MySQL(app)
 
+# for login
 @app.route('/login',methods=['POST'])
 def login_chk():
     username=request.json['username']
@@ -18,8 +19,8 @@ def login_chk():
     
     cur=mysql.connection.cursor()
     stmt="select * from user where email=%s and password=%s;"
-    dd=(username,password)
-    cur.execute(stmt,dd)
+    credentials=(username,password)
+    cur.execute(stmt,credentials)
     result=cur.fetchall()
     data=[]
     for row in result:
@@ -27,11 +28,13 @@ def login_chk():
 
     # return 'true'
     if(len(data)!=0):
-        return json.dumps({'logged_in':True})
+        return json.dumps({'logged_in':True,'user_id':data[0][0]})
     else:
         return json.dumps({'logged_in':False})
     
 
+
+# for getting all the tickets
 @app.route('/alltickets')
 def all_tick():
     cur=mysql.connection.cursor()
@@ -43,6 +46,9 @@ def all_tick():
 
     return {'all_ticket':data}
 
+
+
+# for gettting all tickets created by a specific user
 @app.route('/<user_id>/ticket')
 def user_tick(user_id):
     cur=mysql.connection.cursor()
@@ -52,8 +58,11 @@ def user_tick(user_id):
     for row in result:
         data.append(row)
 
-    return {'user '+str(user_id)+' all tickets':data}
+    return {'user_tickets':data}
 
+
+
+#if someone clicks on ticket then all comments of that ticket would be given
 @app.route('/ticket/<ticket_id>')
 def tick_det(ticket_id):
     cur=mysql.connection.cursor()
@@ -63,4 +72,16 @@ def tick_det(ticket_id):
     for row in result:
         data.append(row)
 
-    return {'ticket detail':data}
+    return {'ticket_detail':data}
+
+
+@app.route('/addcmt/<ticket_id>',methods=['POST'])
+def add_comment(ticket_id):
+    desc=request.json['description']
+    cur=mysql.connection.cursor()
+    stmt="INSERT INTO data(description,ticket_id) VALUES(%s,%s)"
+    data=(desc,ticket_id)
+    cur.execute(stmt,data)
+    mysql.connection.commit()
+    cur.close()
+    return json.dumps({"ticket_id":ticket_id})

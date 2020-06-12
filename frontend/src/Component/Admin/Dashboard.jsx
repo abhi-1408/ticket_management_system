@@ -1,6 +1,7 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchAllTicket} from '../../Redux/action';
+import {Link} from 'react-router-dom';
 
 export const Dashboard = (props) => {
 	const {all_ticket} = useSelector((state) => state);
@@ -28,7 +29,9 @@ export const Dashboard = (props) => {
 						all_ticket.map((ele) => {
 							return (
 								<tr>
-									<td>{ele[0]}</td>
+									<td>
+										<Link to={`/target/${ele[0]}`}> {ele[0]}</Link>
+									</td>
 									<td>{ele[1]}</td>
 									<td>{ele[2]}</td>
 								</tr>

@@ -26,6 +26,7 @@ export default (state = initState, {type, payload}) => {
 				current_userid: payload,
 				logged_in: true,
 				wrong_cred: false,
+				ticket_details: [],
 			};
 
 		case 'LOGIN_FAILURE':

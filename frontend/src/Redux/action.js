@@ -115,3 +115,30 @@ export const loginUser = (payload) => {
 		);
 	};
 };
+
+export const addingCommentSuccess = (payload) => {
+	return {
+		type: 'COMMENT_SUCCESS',
+		payload: 'none',
+	};
+};
+
+export const addComment = (payload) => {
+	console.log('add comment clicked', payload);
+	return (dispatch) => {
+		return (
+			axios({
+				url: 'http://127.0.0.1:5000/addcmt/' + payload['ticket_id'],
+				method: 'POST',
+				data: {description: payload['description']},
+			})
+				// .then((res) => console.log('data got from login request: ', res))
+				.then((res) => {
+					console.log('res is', res);
+					// const {data} = res;
+					dispatch(fetchSpecificTicket(res.data['ticket_id']));
+				})
+				.catch((err) => console.log('cant send data to create', err))
+		);
+	};
+};

@@ -1,17 +1,27 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {fetchSpecificTicket} from '../../Redux/action';
+import {fetchSpecificTicket, addComment} from '../../Redux/action';
 import {Redirect} from 'react-router-dom';
 
 export const TicketView = (props) => {
 	const {ticket_details} = useSelector((state) => state);
 
+	const [desc, setDesc] = useState('');
 	let dispatch = useDispatch();
 
 	function handleClick() {
 		let id = props.match.params.id;
 		dispatch(fetchSpecificTicket(id));
 	}
+
+	function handleChg(e) {
+		setDesc(e.target.value);
+	}
+
+	function handleClickReply() {
+		dispatch(addComment({ticket_id: props.match.params.id, description: desc}));
+	}
+
 	return (
 		<>
 			<br />
@@ -33,6 +43,19 @@ export const TicketView = (props) => {
 						</div>
 					);
 				})}
+			{ticket_details.length > 0 ? (
+				<div>
+					<input
+						value={desc}
+						name="desc"
+						onChange={(e) => handleChg(e)}
+						placeholder="add comment"
+					/>
+					<button onClick={() => handleClickReply()}>send reply</button>
+				</div>
+			) : (
+				''
+			)}
 		</>
 	);
 };
