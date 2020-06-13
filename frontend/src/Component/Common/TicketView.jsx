@@ -4,7 +4,7 @@ import {fetchSpecificTicket, addComment} from '../../Redux/action';
 import {Redirect} from 'react-router-dom';
 
 export const TicketView = (props) => {
-	const {ticket_details} = useSelector((state) => state);
+	const {ticket_details, current_userid} = useSelector((state) => state);
 
 	const [desc, setDesc] = useState('');
 	let dispatch = useDispatch();
@@ -19,7 +19,20 @@ export const TicketView = (props) => {
 	}
 
 	function handleClickReply() {
-		dispatch(addComment({ticket_id: props.match.params.id, description: desc}));
+		let datetime = new Date().toISOString();
+		let date = datetime.slice(0, 10);
+		let time = datetime.slice(11, 19);
+		let cmt_date = date + ' ' + time;
+		dispatch(
+			addComment({
+				ticket_id: props.match.params.id,
+				data: {
+					description: desc,
+					comment_date: cmt_date,
+					commentby: current_userid,
+				},
+			})
+		);
 	}
 
 	return (
@@ -35,11 +48,20 @@ export const TicketView = (props) => {
 						<div>
 							<div class="card">
 								<div class="card-body">
-									<h5 class="card-title">Subject: {ele[2]}</h5>
+									<h5 class="card-title">Subject: {ele[5]}</h5>
 									<h6 class="card-subtitle mb-2 text-muted">
-										comment id: {ele[3]}
+										comment id: {ele[6]}
 									</h6>
-									<p class="card-text">comment: {ele[4]}</p>
+									<h6 class="card-subtitle mb-2 text-muted">
+										priority: {ele[2]}
+									</h6>
+									<h6 class="card-subtitle mb-2 text-muted">
+										user id who made comment: {ele[9]}
+									</h6>
+									<h6 class="card-subtitle mb-2 text-muted">
+										comment time: {ele[8]}
+									</h6>
+									<p class="card-text">comment: {ele[10]}</p>
 								</div>
 							</div>
 						</div>

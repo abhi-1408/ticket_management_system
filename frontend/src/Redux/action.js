@@ -147,7 +147,7 @@ export const addComment = (payload) => {
 			axios({
 				url: 'http://127.0.0.1:5000/addcmt/' + payload['ticket_id'],
 				method: 'POST',
-				data: {description: payload['description']},
+				data: payload['data'],
 			})
 				// .then((res) => console.log('data got from login request: ', res))
 				.then((res) => {

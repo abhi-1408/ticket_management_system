@@ -27,6 +27,8 @@ export const Users = (props) => {
 					<thead class="thead-dark">
 						<tr>
 							<th scope="col">TICKET ID</th>
+							<th scope="col">Priority</th>
+							<th scope="col">Creation Time</th>
 							<th scope="col">SUBJECT</th>
 						</tr>
 					</thead>
@@ -36,9 +38,11 @@ export const Users = (props) => {
 								return (
 									<tr>
 										<td>
-											<Link to={`/target/${ele[3]}`}> {ele[3]}</Link>
+											<Link to={`/target/${ele[6]}`}> {ele[6]}</Link>
 										</td>
-										<td>{ele[5]}</td>
+										<td>{ele[8]}</td>
+										<td>{ele[10]}</td>
+										<td>{ele[11]}</td>
 									</tr>
 								);
 							})}

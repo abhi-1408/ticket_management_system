@@ -7,7 +7,7 @@ app=Flask(__name__)
 app.config['MYSQL_HOST']='localhost'
 app.config['MYSQL_USER']='root'
 app.config['MYSQL_PASSWORD']='rootpass'
-app.config['MYSQL_DB']= 'ticktest'
+app.config['MYSQL_DB']= 'TICKET_DB'
 
 mysql=MySQL(app)
 
@@ -77,10 +77,12 @@ def tick_det(ticket_id):
 
 @app.route('/addcmt/<ticket_id>',methods=['POST'])
 def add_comment(ticket_id):
-    desc=request.json['description']
+    description=request.json['description']
+    comment_date=request.json['comment_date']
+    commentby=request.json['commentby']
     cur=mysql.connection.cursor()
-    stmt="INSERT INTO data(description,ticket_id) VALUES(%s,%s)"
-    data=(desc,ticket_id)
+    stmt="INSERT INTO data(ticket_id,comment_date,commentby,description) VALUES(%s,%s,%s,%s)"
+    data=(ticket_id,comment_date,commentby,description)
     cur.execute(stmt,data)
     mysql.connection.commit()
     cur.close()
@@ -90,9 +92,13 @@ def add_comment(ticket_id):
 @app.route('/addticket/<user_id>',methods=['POST'])
 def add_new_ticket(user_id):
     subject=request.json['subject']
+    resolved=request.json['resolved']
+    priority=request.json['priority']
+    user_id=request.json['user_id']
+    creation_time=request.json['creation_time']
     cur=mysql.connection.cursor()
-    stmt="INSERT INTO ticket(user_id,subject) VALUES(%s,%s)"
-    data=(user_id,subject)
+    stmt="INSERT INTO ticket(resolved,priority,user_id,creation_time,subject) VALUES(%s,%s,%s,%s,%s)"
+    data=(resolved,priority,user_id,creation_time,subject)
     cur.execute(stmt,data)
     mysql.connection.commit()
     cur.close()
@@ -112,8 +118,8 @@ def add_new_ticket(user_id):
 
     description=request.json['description']
     cur2=mysql.connection.cursor()
-    stmt="INSERT INTO data(ticket_id,description) VALUES(%s,%s)"
-    data=(data1[0][0],description)
+    stmt="INSERT INTO data(ticket_id,comment_date,commentby,description) VALUES(%s,%s,%s,%s)"
+    data=(data1[0][0],[creation_time],[user_id],[description])
     cur2.execute(stmt,data)
     mysql.connection.commit()
     cur2.close()

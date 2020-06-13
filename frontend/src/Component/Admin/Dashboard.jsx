@@ -20,7 +20,10 @@ export const Dashboard = (props) => {
 				<thead class="thead-dark">
 					<tr>
 						<th scope="col">Ticket ID</th>
-						<th scope="col">USER ID</th>
+						<th scope="col">Resolved</th>
+						<th scope="col">Priority</th>
+						<th scope="col">Created by User ID</th>
+						<th scope="col">Creation Time</th>
 						<th scope="col">Subject</th>
 					</tr>
 				</thead>
@@ -34,6 +37,9 @@ export const Dashboard = (props) => {
 									</td>
 									<td>{ele[1]}</td>
 									<td>{ele[2]}</td>
+									<td>{ele[3]}</td>
+									<td>{ele[4]}</td>
+									<td>{ele[5]}</td>
 								</tr>
 							);
 						})}
