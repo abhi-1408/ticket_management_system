@@ -11,7 +11,7 @@ import {Create} from '../Common/Create';
 import {Users} from '../User/Users';
 
 export const Routes = (props) => {
-	const {logged_in, current_userid} = useSelector((state) => state);
+	const {logged_in, current_userid, isAdmin} = useSelector((state) => state);
 	return (
 		<>
 			<br />
@@ -24,8 +24,7 @@ export const Routes = (props) => {
 				</>
 			)}
 			<br />
-			<Link to="/all_tickets">ALL TICKETS</Link>
-
+			{isAdmin == 1 ? <Link to="/all_tickets">ALL TICKETS</Link> : ''}
 			<Switch>
 				<Route path="/login" exact render={(props) => <Login />} />
 				<Route path="/logout" exact render={(props) => <Logout {...props} />} />

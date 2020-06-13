@@ -121,9 +121,9 @@ export const loginUser = (payload) => {
 				.then((res) => {
 					console.log('res is', res);
 					// const {data} = res;
-					let {logged_in, user_id} = res.data;
+					let {logged_in, user_id, user_data} = res.data;
 					if (logged_in) {
-						dispatch(loginSuccess(user_id));
+						dispatch(loginSuccess({user_id: user_id, user_detail: user_data}));
 					} else {
 						dispatch(loginFailure());
 					}

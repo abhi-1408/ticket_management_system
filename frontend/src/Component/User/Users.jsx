@@ -4,9 +4,12 @@ import {fetchSpecificUserTicket} from '../../Redux/action';
 import {Link, Redirect} from 'react-router-dom';
 
 export const Users = (props) => {
-	const {logged_in, current_userid, user_tickets} = useSelector(
-		(state) => state
-	);
+	const {
+		logged_in,
+		current_userid,
+		user_tickets,
+		current_user_detail,
+	} = useSelector((state) => state);
 
 	let dispatch = useDispatch();
 
@@ -17,7 +20,10 @@ export const Users = (props) => {
 	if (logged_in) {
 		return (
 			<>
-				<h2>logged in user: {current_userid}</h2>
+				<h2>logged in user: {current_user_detail[0][1]}</h2>
+				<h3>
+					Phone: {current_user_detail[0][3]} Email: {current_user_detail[0][4]}{' '}
+				</h3>
 				<button onClick={() => handleClick()}>
 					fetch user tickets{current_userid}{' '}
 				</button>
