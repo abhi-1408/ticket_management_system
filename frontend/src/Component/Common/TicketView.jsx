@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchSpecificTicket, addComment, chgStatus} from '../../Redux/action';
 import {Redirect} from 'react-router-dom';
@@ -13,6 +13,13 @@ export const TicketView = (props) => {
 
 	const [desc, setDesc] = useState('');
 	let dispatch = useDispatch();
+
+	const [load, setLoad] = useState('');
+
+	useEffect(() => {
+		let id = props.match.params.id;
+		dispatch(fetchSpecificTicket(id));
+	}, []);
 
 	function handleClick() {
 		let id = props.match.params.id;
@@ -45,6 +52,7 @@ export const TicketView = (props) => {
 			chgStatus({
 				ticket_id: current_ticket_id,
 				resolved: current_ticket_resolved,
+				current_userid: current_userid,
 			})
 		);
 	}
@@ -54,9 +62,9 @@ export const TicketView = (props) => {
 			<div className="mx-5">
 				<br />
 				TICKET DETAILS
-				<button className="btn btn-info" onClick={() => handleClick()}>
+				{/* <button className="btn btn-info" onClick={() => handleClick()}>
 					get specific ticket {props.match.params.id}
-				</button>
+				</button> */}
 				ticket id {current_ticket_id}
 				{/* ticket resolved {current_ticket_resolved} */}
 				<button

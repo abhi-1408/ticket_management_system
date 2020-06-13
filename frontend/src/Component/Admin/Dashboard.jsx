@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchAllTicket} from '../../Redux/action';
 import {Link} from 'react-router-dom';
@@ -7,6 +7,11 @@ export const Dashboard = (props) => {
 	const {all_ticket} = useSelector((state) => state);
 
 	const dispatch = useDispatch();
+	const [load, setLoad] = useState('');
+
+	useEffect(() => {
+		dispatch(fetchAllTicket());
+	}, []);
 
 	function handleClick() {
 		dispatch(fetchAllTicket());
@@ -15,9 +20,9 @@ export const Dashboard = (props) => {
 	return (
 		<div>
 			DASHBOARD
-			<button className="btn btn-info" onClick={() => handleClick()}>
+			{/* <button className="btn btn-info" onClick={() => handleClick()}>
 				fetch
-			</button>
+			</button> */}
 			<table class="table">
 				<thead class="thead-dark">
 					<tr>

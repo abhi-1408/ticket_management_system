@@ -109,7 +109,10 @@ export const chgStatus = (payload) => {
 			method: 'POST',
 			data: {resolved: resolved},
 		})
-			.then((res) => dispatch(fetchSpecificTicket(payload['ticket_id'])))
+			.then((res) => {
+				dispatch(fetchSpecificUserTicket(payload['current_userid']));
+				dispatch(fetchSpecificTicket(payload['ticket_id']));
+			})
 			.catch((err) => console.log('cant send data to create', err));
 	};
 };
@@ -150,6 +153,12 @@ export const tokenVerifer = (payload) => {
 	};
 };
 
+export const loadSpecificData = (payload) => {
+	return (dispatch) => {
+		dispatch(fetchSpecificUserTicket(payload));
+	};
+};
+
 export const loginUser = (payload) => {
 	console.log('chg auth clicked', payload);
 	return (dispatch) => {
@@ -166,6 +175,7 @@ export const loginUser = (payload) => {
 				// const {data} = res;
 				let {logged_in, user_id, user_data} = res.data;
 				if (logged_in) {
+					dispatch(loadSpecificData(user_id));
 					dispatch(loginSuccess({user_id: user_id, user_detail: user_data}));
 				} else {
 					dispatch(loginFailure());

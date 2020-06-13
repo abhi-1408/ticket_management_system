@@ -40,6 +40,8 @@ export const Users = (props) => {
 						<tr>
 							<th scope="col">TICKET ID</th>
 							<th scope="col">Priority</th>
+							<th scope="col">Resolved</th>
+
 							<th scope="col">Creation Time</th>
 							<th scope="col">SUBJECT</th>
 						</tr>
@@ -47,16 +49,31 @@ export const Users = (props) => {
 					<tbody>
 						{user_tickets &&
 							user_tickets.map((ele) => {
-								return (
-									<tr>
-										<td>
-											<Link to={`/target/${ele[6]}`}> {ele[6]}</Link>
-										</td>
-										<td>{ele[8]}</td>
-										<td>{ele[10]}</td>
-										<td>{ele[11]}</td>
-									</tr>
-								);
+								if (ele[7] == 0) {
+									return (
+										<tr style={{color: 'red'}}>
+											<td>
+												<Link to={`/target/${ele[6]}`}> {ele[6]}</Link>
+											</td>
+											<td>{ele[8]}</td>
+											<td>{ele[7]}</td>
+											<td>{ele[10]}</td>
+											<td>{ele[11]}</td>
+										</tr>
+									);
+								} else {
+									return (
+										<tr style={{color: 'green'}}>
+											<td>
+												<Link to={`/target/${ele[6]}`}> {ele[6]}</Link>
+											</td>
+											<td>{ele[8]}</td>
+											<td>{ele[7]}</td>
+											<td>{ele[10]}</td>
+											<td>{ele[11]}</td>
+										</tr>
+									);
+								}
 							})}
 					</tbody>
 				</table>

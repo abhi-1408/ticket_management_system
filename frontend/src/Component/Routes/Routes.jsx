@@ -41,7 +41,7 @@ export const Routes = (props) => {
 							USER HOME
 						</Link>
 						{isAdmin == 1 ? (
-							<Link className="navbar-brand" to="/all_tickets">
+							<Link className="navbar-brand text-info" to="/all_tickets">
 								ALL TICKETS
 							</Link>
 						) : (
