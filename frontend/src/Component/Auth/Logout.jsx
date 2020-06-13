@@ -13,8 +13,10 @@ export const Logout = (props) => {
 	}
 
 	return (
-		<div>
-			<button onClick={() => handleClick()}>LOGOUT</button>
+		<div className="text-center">
+			<button className="btn btn-danger" onClick={() => handleClick()}>
+				LOGOUT
+			</button>
 		</div>
 	);
 };

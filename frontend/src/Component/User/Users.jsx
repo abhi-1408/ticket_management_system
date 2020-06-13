@@ -21,15 +21,21 @@ export const Users = (props) => {
 		return (
 			<>
 				<h2>logged in user: {current_user_detail[0][1]}</h2>
-				<h3>
-					Phone: {current_user_detail[0][3]} Email: {current_user_detail[0][4]}{' '}
-				</h3>
-				<button onClick={() => handleClick()}>
+				<div className="container">
+					<div className="row">
+						<div className="col">Phone: {current_user_detail[0][3]}</div>
+						<div className="col">Email: {current_user_detail[0][4]} </div>
+					</div>
+				</div>
+
+				<button className="btn btn-info" onClick={() => handleClick()}>
 					fetch user tickets{current_userid}{' '}
 				</button>
-				<Link to={`/create/${current_userid}`}>CREATE NEW TICKET</Link>
+				<Link className="btn btn-warning" to={`/create/${current_userid}`}>
+					CREATE NEW TICKET
+				</Link>
 
-				<table class="table">
+				<table class="table my-5">
 					<thead class="thead-dark">
 						<tr>
 							<th scope="col">TICKET ID</th>
@@ -57,6 +63,6 @@ export const Users = (props) => {
 			</>
 		);
 	} else {
-		return <div>NOT LOGGED IN</div>;
+		return <div className="text-center">NOT LOGGED IN</div>;
 	}
 };

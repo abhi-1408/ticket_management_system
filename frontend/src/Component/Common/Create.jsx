@@ -48,33 +48,43 @@ export const Create = (props) => {
 	}
 
 	return (
-		<div>
-			CREATE NEW TICKET USER{props.match.params.id}
+		<div className="text-center mx-5">
+			<h3>CREATE NEW TICKET USER{props.match.params.id}</h3>
+			<label>Subject</label>
 			<input
+				className="form-control"
 				name="subject"
 				value={subject}
 				onChange={(e) => handleChg(e)}
 				placeholder="subject"
 			/>
+			<label>Description</label>
 			<input
+				className="form-control"
 				name="description"
 				value={description}
 				onChange={(e) => handleChg(e)}
 				placeholder="description"
 			/>
+			<label>Resolved</label>
 			<input
+				className="form-control"
 				name="resolved"
 				value={resolved}
 				onChange={(e) => handleChg(e)}
 				placeholder="resolved 0/1"
 			/>
+			<label>Priority</label>
 			<input
+				className="form-control"
 				name="priority"
 				value={priority}
 				onChange={(e) => handleChg(e)}
 				placeholder="priority"
 			/>
-			<button onClick={() => handleClick()}>CREATE</button>
+			<button className="btn btn-success " onClick={() => handleClick()}>
+				CREATE
+			</button>
 		</div>
 	);
 };

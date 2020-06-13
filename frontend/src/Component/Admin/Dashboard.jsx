@@ -15,7 +15,9 @@ export const Dashboard = (props) => {
 	return (
 		<div>
 			DASHBOARD
-			<button onClick={() => handleClick()}>fetch</button>
+			<button className="btn btn-info" onClick={() => handleClick()}>
+				fetch
+			</button>
 			<table class="table">
 				<thead class="thead-dark">
 					<tr>

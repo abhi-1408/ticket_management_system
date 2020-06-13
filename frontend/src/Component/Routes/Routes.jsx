@@ -16,16 +16,47 @@ export const Routes = (props) => {
 		<>
 			<br />
 			{!logged_in ? (
-				<Link to="/login">LOGIN</Link>
+				<>
+					<nav class="navbar navbar-light bg-light">
+						<a class="navbar-brand" href="/">
+							HOME
+						</a>
+
+						<Link className="navbar-brand text-primary" to="/login">
+							LOGIN
+						</Link>
+					</nav>
+					<div class="container text-center">
+						<div className="row">
+							<div className="col">
+								<h1>TICKET MANAGEMENT SYSTEM</h1>
+							</div>
+						</div>
+					</div>
+				</>
 			) : (
 				<>
-					<Link to="/logout">LOGOUT</Link>
-					<Link to={`/user/${current_userid}`}>USER HOME</Link>
+					<nav class="navbar navbar-light bg-light">
+						<Link className="navbar-brand" to={`/user/${current_userid}`}>
+							USER HOME
+						</Link>
+						{isAdmin == 1 ? (
+							<Link className="navbar-brand" to="/all_tickets">
+								ALL TICKETS
+							</Link>
+						) : (
+							''
+						)}
+						<Link className="navbar-brand text-danger" to="/logout">
+							LOGOUT
+						</Link>
+					</nav>
 				</>
 			)}
 			<br />
-			{isAdmin == 1 ? <Link to="/all_tickets">ALL TICKETS</Link> : ''}
+
 			<Switch>
+				<Route path="/" exact render={(props) => <div></div>} />
 				<Route path="/login" exact render={(props) => <Login />} />
 				<Route path="/logout" exact render={(props) => <Logout {...props} />} />
 				<Route

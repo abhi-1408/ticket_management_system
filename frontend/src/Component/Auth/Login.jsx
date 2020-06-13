@@ -27,23 +27,42 @@ export const Login = (props) => {
 		return <Redirect to={url} />;
 	} else {
 		return (
-			<div>
-				Login
-				<input
-					name="username"
-					value={username}
-					onChange={(e) => handleChg(e)}
-					placeholder="username"
-				/>
-				<input
-					name="password"
-					value={password}
-					onChange={(e) => handleChg(e)}
-					placeholder="password"
-				/>
-				<div>{wrong_cred ? 'wrong credentials' : ''}</div>
-				<button onClick={() => handleSubmit()}>LOGIN</button>
-			</div>
+			<>
+				<div className="text-center">
+					<h2>LOGIN</h2>
+				</div>
+				<div className="form-group m-5">
+					<label>USERNAME</label>
+					<input
+						className="form-control"
+						name="username"
+						value={username}
+						onChange={(e) => handleChg(e)}
+						placeholder="username"
+					/>
+					<label>PASSWORD</label>
+					<input
+						className="form-control"
+						name="password"
+						value={password}
+						onChange={(e) => handleChg(e)}
+						placeholder="password"
+					/>
+					<div>
+						{wrong_cred ? (
+							<div className="text-danger">wrong credentials</div>
+						) : (
+							''
+						)}
+					</div>
+					<button
+						className="btn btn-primary my-2"
+						onClick={() => handleSubmit()}
+					>
+						LOGIN
+					</button>
+				</div>
+			</>
 		);
 	}
 };
