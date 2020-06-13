@@ -4,6 +4,8 @@ export const initState = {
 	all_ticket: [{}],
 	current_user_detail: [{}],
 	current_userid: '',
+	current_ticket_id: '',
+	current_ticket_resolved: '',
 	user_tickets: [{}],
 	logged_in: false,
 	isAdmin: 0,
@@ -49,6 +51,8 @@ export default (state = initState, {type, payload}) => {
 				user_tickets: [{}],
 				ticket_details: [],
 				isAdmin: 0,
+				current_ticket_resolved: '',
+				current_ticket_id: '',
 			};
 
 		case 'SPECIFIC_USER_TICKET_SUCCESS':
@@ -60,7 +64,9 @@ export default (state = initState, {type, payload}) => {
 		case 'SPECIFIC_TICKET_SUCCESS':
 			return {
 				...state,
-				ticket_details: payload,
+				ticket_details: payload['user_ticket'],
+				current_ticket_id: payload['ticket_id'],
+				current_ticket_resolved: payload['ticket_resolved'],
 			};
 
 		default:

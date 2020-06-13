@@ -142,3 +142,14 @@ def add_new_ticket(user_id):
 
     return json.dumps({"user":user_id,"added_ticket_id":data1[0][0]})
 
+@app.route('/chgstatus/<ticket_id>',methods=['POST'])
+def chg_status(ticket_id):
+
+    resolved=request.json['resolved']
+    cur=mysql.connection.cursor()
+    stmt="UPDATE ticket SET resolved=%s WHERE ticket_id=%s"
+    data=([resolved],[ticket_id])
+    cur.execute(stmt,data)
+    mysql.connection.commit()
+    cur.close()
+    return 'done'

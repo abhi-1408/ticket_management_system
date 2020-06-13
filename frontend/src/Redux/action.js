@@ -82,7 +82,34 @@ export const fetchSpecificTicket = (payload) => {
 				console.log('data got from specific fetch user ticket request: ', res);
 				return res;
 			})
-			.then((res) => dispatch(specificTicketSuccess(res.data.ticket_detail)))
+			.then((res) =>
+				dispatch(
+					specificTicketSuccess({
+						user_ticket: res.data.ticket_detail,
+						ticket_id: payload,
+						ticket_resolved: res.data.ticket_detail[0][1],
+					})
+				)
+			)
+			.catch((err) => console.log('cant send data to create', err));
+	};
+};
+
+export const chgStatus = (payload) => {
+	console.log('fetch specific ticket', payload);
+	let resolved = payload['resolved'];
+	if (resolved == 1) {
+		resolved = 0;
+	} else {
+		resolved = 1;
+	}
+	return (dispatch) => {
+		return axios({
+			url: 'http://127.0.0.1:5000/chgstatus/' + payload['ticket_id'],
+			method: 'POST',
+			data: {resolved: resolved},
+		})
+			.then((res) => dispatch(fetchSpecificTicket(payload['ticket_id'])))
 			.catch((err) => console.log('cant send data to create', err));
 	};
 };
@@ -108,28 +135,43 @@ export const logoutUser = (payload) => {
 	};
 };
 
+export const tokenVerifer = (payload) => {
+	console.log('token verifier clicked', payload);
+	return (dispatch) => {
+		return axios({
+			url: 'http://127.0.0.1:5000/authtoken',
+			method: 'POST',
+			data: payload,
+		})
+			.then((res) => {
+				return res;
+			})
+			.catch((err) => console.log('cant send data to create', err));
+	};
+};
+
 export const loginUser = (payload) => {
 	console.log('chg auth clicked', payload);
 	return (dispatch) => {
-		return (
-			axios({
-				url: 'http://127.0.0.1:5000/login',
-				method: 'POST',
-				data: payload,
+		return axios({
+			url: 'http://127.0.0.1:5000/login',
+			method: 'POST',
+			data: payload,
+		})
+			.then((res) => {
+				return dispatch(tokenVerifer(res.data));
 			})
-				// .then((res) => console.log('data got from login request: ', res))
-				.then((res) => {
-					console.log('res is', res);
-					// const {data} = res;
-					let {logged_in, user_id, user_data} = res.data;
-					if (logged_in) {
-						dispatch(loginSuccess({user_id: user_id, user_detail: user_data}));
-					} else {
-						dispatch(loginFailure());
-					}
-				})
-				.catch((err) => console.log('cant send data to create', err))
-		);
+			.then((res) => {
+				console.log('res is', res);
+				// const {data} = res;
+				let {logged_in, user_id, user_data} = res.data;
+				if (logged_in) {
+					dispatch(loginSuccess({user_id: user_id, user_detail: user_data}));
+				} else {
+					dispatch(loginFailure());
+				}
+			})
+			.catch((err) => console.log('cant send data to create', err));
 	};
 };
 

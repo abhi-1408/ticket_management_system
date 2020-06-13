@@ -30,18 +30,35 @@ export const Dashboard = (props) => {
 				<tbody>
 					{all_ticket &&
 						all_ticket.map((ele) => {
-							return (
-								<tr>
-									<td>
-										<Link to={`/target/${ele[0]}`}> {ele[0]}</Link>
-									</td>
-									<td>{ele[1]}</td>
-									<td>{ele[2]}</td>
-									<td>{ele[3]}</td>
-									<td>{ele[4]}</td>
-									<td>{ele[5]}</td>
-								</tr>
-							);
+							if (ele[1] == 0) {
+								return (
+									<tr style={{color: 'red'}}>
+										<td>
+											<Link to={`/target/${ele[0]}`}> {ele[0]}</Link>
+										</td>
+
+										<td>{ele[1]}</td>
+										<td>{ele[2]}</td>
+										<td>{ele[3]}</td>
+										<td>{ele[4]}</td>
+										<td>{ele[5]}</td>
+									</tr>
+								);
+							} else {
+								return (
+									<tr style={{color: 'green'}}>
+										<td>
+											<Link to={`/target/${ele[0]}`}> {ele[0]}</Link>
+										</td>
+
+										<td>{ele[1]}</td>
+										<td>{ele[2]}</td>
+										<td>{ele[3]}</td>
+										<td>{ele[4]}</td>
+										<td>{ele[5]}</td>
+									</tr>
+								);
+							}
 						})}
 				</tbody>
 			</table>

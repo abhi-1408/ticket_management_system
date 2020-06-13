@@ -1,10 +1,15 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {fetchSpecificTicket, addComment} from '../../Redux/action';
+import {fetchSpecificTicket, addComment, chgStatus} from '../../Redux/action';
 import {Redirect} from 'react-router-dom';
 
 export const TicketView = (props) => {
-	const {ticket_details, current_userid} = useSelector((state) => state);
+	const {
+		ticket_details,
+		current_userid,
+		current_ticket_id,
+		current_ticket_resolved,
+	} = useSelector((state) => state);
 
 	const [desc, setDesc] = useState('');
 	let dispatch = useDispatch();
@@ -35,12 +40,26 @@ export const TicketView = (props) => {
 		);
 	}
 
+	function handleClickStatus() {
+		dispatch(
+			chgStatus({
+				ticket_id: current_ticket_id,
+				resolved: current_ticket_resolved,
+			})
+		);
+	}
+
 	return (
 		<>
 			<br />
 			TICKET DETAILS
 			<button onClick={() => handleClick()}>
 				get specific ticket {props.match.params.id}
+			</button>
+			ticket id {current_ticket_id}
+			{/* ticket resolved {current_ticket_resolved} */}
+			<button onClick={() => handleClickStatus()}>
+				{current_ticket_resolved == 0 ? 'CLOSE TICKET' : 'WANT TO OPEN AGAIN'}
 			</button>
 			{ticket_details &&
 				ticket_details.map((ele, ind) => {
@@ -67,7 +86,7 @@ export const TicketView = (props) => {
 						</div>
 					);
 				})}
-			{ticket_details.length > 0 ? (
+			{current_ticket_resolved == 0 && ticket_details.length > 0 ? (
 				<div>
 					<input
 						value={desc}
