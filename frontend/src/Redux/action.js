@@ -211,3 +211,63 @@ export const addComment = (payload) => {
 		);
 	};
 };
+
+export const setCurrentPage = (payload) => {
+	return {
+		type: 'SET_CURRENT_PAGE',
+		payload: payload,
+	};
+};
+
+export const registerStarted = (payload) => {
+	return {
+		type: 'REGISTER_STARTED',
+		payload: 1,
+	};
+};
+
+export const registerSuccess = (payload) => {
+	return {
+		type: 'REGISTER_SUCCESS',
+		payload: 2,
+	};
+};
+
+export const registerReset = (payload) => {
+	return {
+		type: 'REGISTER_RESET',
+		payload: 0,
+	};
+};
+
+export const registerFailure = (payload) => {
+	return {
+		type: 'REGISTER_FAILURE',
+		payload: -1,
+	};
+};
+
+export const registerUser = (payload) => {
+	console.log('register user clicked', payload);
+	return (dispatch) => {
+		dispatch(registerStarted());
+		return (
+			axios({
+				url: 'http://127.0.0.1:5000/signup',
+				method: 'POST',
+				data: payload,
+			})
+				// .then((res) => console.log('data got from login request: ', res))
+				.then((res) => {
+					console.log('res is', res);
+					// const {data} = res;
+					dispatch(registerSuccess());
+					// dispatch(fetchSpecificTicket(res.data['ticket_id']));
+				})
+				.catch((err) => {
+					dispatch(registerFailure());
+					console.log('cant send data to create', err);
+				})
+		);
+	};
+};

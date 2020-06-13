@@ -89,7 +89,7 @@ def tick_det(ticket_id):
 
     return {'ticket_detail':data}
 
-
+# adding more comment to a particular thread
 @app.route('/addcmt/<ticket_id>',methods=['POST'])
 def add_comment(ticket_id):
     description=request.json['description']
@@ -104,6 +104,7 @@ def add_comment(ticket_id):
     return json.dumps({"ticket_id":ticket_id})
 
 
+# create a new ticket by a user
 @app.route('/addticket/<user_id>',methods=['POST'])
 def add_new_ticket(user_id):
     subject=request.json['subject']
@@ -142,6 +143,7 @@ def add_new_ticket(user_id):
 
     return json.dumps({"user":user_id,"added_ticket_id":data1[0][0]})
 
+# change status of ticket open/close
 @app.route('/chgstatus/<ticket_id>',methods=['POST'])
 def chg_status(ticket_id):
 
@@ -153,3 +155,19 @@ def chg_status(ticket_id):
     mysql.connection.commit()
     cur.close()
     return 'done'
+
+
+@app.route('/signup',methods=['POST'])
+def signup():
+    name=request.json['name']
+    isAdmin=request.json['isAdmin']
+    phone=request.json['phone']
+    email=request.json['email']
+    password=request.json['password']
+    cur=mysql.connection.cursor()
+    stmt="INSERT INTO user(name,isAdmin,phone,email,password) VALUES(%s,%s,%s,%s,%s)"
+    data=(name,isAdmin,phone,email,password)
+    cur.execute(stmt,data)
+    mysql.connection.commit()
+    cur.close()
+    return json.dumps({'user_added':True})

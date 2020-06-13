@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {store} from '../../Redux/store';
 import {Dashboard} from '../Admin/Dashboard';
 import {Login} from '../Auth/Login';
+import {Signup} from '../Auth/Signup';
 import {Logout} from '../Auth/Logout';
 import {TicketView} from '../Common/TicketView';
 import {Create} from '../Common/Create';
@@ -24,6 +25,9 @@ export const Routes = (props) => {
 
 						<Link className="navbar-brand text-primary" to="/login">
 							LOGIN
+						</Link>
+						<Link className="navbar-brand text-warning" to="/signup">
+							SIGN UP
 						</Link>
 					</nav>
 					<div class="container text-center">
@@ -58,6 +62,7 @@ export const Routes = (props) => {
 			<Switch>
 				<Route path="/" exact render={(props) => <div></div>} />
 				<Route path="/login" exact render={(props) => <Login />} />
+				<Route path="/signup" exact render={(props) => <Signup {...props} />} />
 				<Route path="/logout" exact render={(props) => <Logout {...props} />} />
 				<Route
 					path="/create/:id"

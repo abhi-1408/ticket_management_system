@@ -10,10 +10,13 @@
 - [x] user/admin functionality
 - [x] add comments/reply
 - [x] create new ticket
+- [x] close/open a existing ticket
 - [x] pagination
+- [x] register page
 - [ ] sorting,filtering
-- [ ] register page
 - [ ] seperation of redux
+- [ ] add company funcitonality and categorize according to it
+- [ ] user details add to ticket thread
 
 ### FRONTEND:
 

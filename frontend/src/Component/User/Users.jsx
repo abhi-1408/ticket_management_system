@@ -20,63 +20,74 @@ export const Users = (props) => {
 	if (logged_in) {
 		return (
 			<>
-				<h2>logged in user: {current_user_detail[0][1]}</h2>
 				<div className="container">
 					<div className="row">
-						<div className="col">Phone: {current_user_detail[0][3]}</div>
-						<div className="col">Email: {current_user_detail[0][4]} </div>
+						<div className="col h3">
+							logged in user: {current_user_detail[0][1]}
+						</div>
 					</div>
-				</div>
+					<div className="row">
+						<div className="col h4">Phone: {current_user_detail[0][3]}</div>
+						<div className="col h4">Email: {current_user_detail[0][4]} </div>
+					</div>
+					<div className="row">
+						<div className="col">
+							<Link
+								className="btn btn-warning"
+								to={`/create/${current_userid}`}
+							>
+								CREATE NEW TICKET
+							</Link>
+						</div>
+					</div>
 
-				<button className="btn btn-info" onClick={() => handleClick()}>
+					{/* <button className="btn btn-info" onClick={() => handleClick()}>
 					fetch user tickets{current_userid}{' '}
-				</button>
-				<Link className="btn btn-warning" to={`/create/${current_userid}`}>
-					CREATE NEW TICKET
-				</Link>
+				</button> */}
 
-				<table class="table my-5">
-					<thead class="thead-dark">
-						<tr>
-							<th scope="col">TICKET ID</th>
-							<th scope="col">Priority</th>
-							<th scope="col">Resolved</th>
+					<table class="table my-5">
+						<thead class="thead-dark">
+							<tr>
+								<th scope="col">TICKET ID</th>
+								<th scope="col">Priority</th>
+								<th scope="col">Resolved</th>
 
-							<th scope="col">Creation Time</th>
-							<th scope="col">SUBJECT</th>
-						</tr>
-					</thead>
-					<tbody>
-						{user_tickets &&
-							user_tickets.map((ele) => {
-								if (ele[7] == 0) {
-									return (
-										<tr style={{color: 'red'}}>
-											<td>
-												<Link to={`/target/${ele[6]}`}> {ele[6]}</Link>
-											</td>
-											<td>{ele[8]}</td>
-											<td>{ele[7]}</td>
-											<td>{ele[10]}</td>
-											<td>{ele[11]}</td>
-										</tr>
-									);
-								} else {
-									return (
-										<tr style={{color: 'green'}}>
-											<td>
-												<Link to={`/target/${ele[6]}`}> {ele[6]}</Link>
-											</td>
-											<td>{ele[8]}</td>
-											<td>{ele[7]}</td>
-											<td>{ele[10]}</td>
-											<td>{ele[11]}</td>
-										</tr>
-									);
-								}
-							})}
-					</tbody>
-				</table>
+								<th scope="col">Creation Time</th>
+								<th scope="col">SUBJECT</th>
+							</tr>
+						</thead>
+						<tbody>
+							{user_tickets &&
+								user_tickets.map((ele) => {
+									if (ele[7] == 0) {
+										return (
+											<tr style={{color: 'red'}}>
+												<td>
+													<Link to={`/target/${ele[6]}`}> {ele[6]}</Link>
+												</td>
+												<td>{ele[8]}</td>
+												<td>{ele[7]}</td>
+												<td>{ele[10]}</td>
+												<td>{ele[11]}</td>
+											</tr>
+										);
+									} else {
+										return (
+											<tr style={{color: 'green'}}>
+												<td>
+													<Link to={`/target/${ele[6]}`}> {ele[6]}</Link>
+												</td>
+												<td>{ele[8]}</td>
+												<td>{ele[7]}</td>
+												<td>{ele[10]}</td>
+												<td>{ele[11]}</td>
+											</tr>
+										);
+									}
+								})}
+						</tbody>
+					</table>
+				</div>
 			</>
 		);
 	} else {
