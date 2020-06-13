@@ -1,10 +1,8 @@
 # ticket_management_system
 
-A ticket management system app to manage the tickets created by users
+## A ticket management system app to manage the tickets created by users
 
 ---
-
-## description: Basic POS application for small scale Business
 
 ## Features
 
@@ -53,3 +51,13 @@ run in terminal :
 export FLASK_ENV=dev
 export FLASK_APP=server.py
 flask run
+
+## login and password:
+
+### for admin :
+
+- username: test@gmail.com password: 1234
+
+### for client :
+
+- username : user@gmail.com password: 1111
