@@ -1,6 +1,7 @@
 from flask import Flask 
 from flask_mysqldb import MySQL 
 import json
+import jwt
 from flask import request
 
 app=Flask(__name__)
@@ -28,11 +29,25 @@ def login_chk():
 
     # return 'true'
     if(len(data)!=0):
-        return json.dumps({'logged_in':True,'user_id':data[0][0]})
+        payload={'logged_in':True,'user_id':data[0][0],"user_data":data}    
     else:
-        return json.dumps({'logged_in':False})
-    
+        payload={'logged_in':False}
 
+    key='masai'
+    encode_jwt=jwt.encode(payload,key)
+    return json.dumps({'auth_token':encode_jwt.decode()})
+    # return json.dumps()
+    
+@app.route('/authtoken',methods=['POST'])
+def auth_token():
+    token=request.json['auth_token']
+    
+    # return 'true'
+    
+    key='masai'
+    decode_jwt=jwt.decode(token,key)
+    return json.dumps(decode_jwt)
+    # return json.dumps()
 
 # for getting all the tickets
 @app.route('/alltickets')
