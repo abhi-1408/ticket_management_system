@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {fetchAllTicket, setCurrentPage} from '../../Redux/action';
+import {fetchAllTicket, setCurrentPage, sortTicket} from '../../Redux/action';
 import {Link} from 'react-router-dom';
 import {Charts} from './Charts';
 
@@ -11,6 +11,7 @@ export const Dashboard = (props) => {
 		current_page,
 		page_size,
 		current_page_data,
+		sortStatus,
 	} = useSelector((state) => state);
 
 	const dispatch = useDispatch();
@@ -28,63 +29,28 @@ export const Dashboard = (props) => {
 		let pageNo = e.target.id;
 		dispatch(setCurrentPage(pageNo));
 	}
+
+	function sortData() {
+		dispatch(sortTicket());
+		dispatch(setCurrentPage('1'));
+	}
+
 	return (
 		<div>
-			{/* <button className="btn btn-info" onClick={() => handleClick()}>
-				fetch
-			</button> */}
-			{/* <table class="table">
-				<thead class="thead-dark">
-					<tr>
-						<th scope="col">Ticket ID</th>
-						<th scope="col">Resolved</th>
-						<th scope="col">Priority</th>
-						<th scope="col">Created by User ID</th>
-						<th scope="col">Creation Time</th>
-						<th scope="col">Subject</th>
-					</tr>
-				</thead>
-				<tbody>
-					{all_ticket &&
-						all_ticket.map((ele) => {
-							if (ele[1] == 0) {
-								return (
-									<tr style={{color: 'red'}}>
-										<td>
-											<Link to={`/target/${ele[0]}`}> {ele[0]}</Link>
-										</td>
-
-										<td>{ele[1]}</td>
-										<td>{ele[2]}</td>
-										<td>{ele[3]}</td>
-										<td>{ele[4]}</td>
-										<td>{ele[5]}</td>
-									</tr>
-								);
-							} else {
-								return (
-									<tr style={{color: 'green'}}>
-										<td>
-											<Link to={`/target/${ele[0]}`}> {ele[0]}</Link>
-										</td>
-
-										<td>{ele[1]}</td>
-										<td>{ele[2]}</td>
-										<td>{ele[3]}</td>
-										<td>{ele[4]}</td>
-										<td>{ele[5]}</td>
-									</tr>
-								);
-							}
-						})}
-				</tbody>
-			</table> */}
 			{/* pagination data */}
+
 			<table class="table">
 				<thead class="thead-dark">
 					<tr>
 						<th scope="col">Ticket ID</th>
-						<th scope="col">Resolved</th>
+						<th scope="col">
+							<button
+								className="btn font-weight-bold text-white bg-dark p-0 m-0"
+								onClick={() => sortData()}
+							>
+								RESOLVED{sortStatus ? '↑' : '↓'}
+							</button>
+						</th>
 						<th scope="col">Priority</th>
 						<th scope="col">Created by User ID</th>
 						<th scope="col">Company ID</th>
@@ -102,7 +68,7 @@ export const Dashboard = (props) => {
 											<Link to={`/target/${ele[0]}`}> {ele[0]}</Link>
 										</td>
 
-										<td>{ele[1]}</td>
+										<td>open</td>
 										<td>{ele[2]}</td>
 										<td>{ele[3]}</td>
 										<td>{ele[4]}</td>
@@ -117,7 +83,7 @@ export const Dashboard = (props) => {
 											<Link to={`/target/${ele[0]}`}> {ele[0]}</Link>
 										</td>
 
-										<td>{ele[1]}</td>
+										<td>resolved</td>
 										<td>{ele[2]}</td>
 										<td>{ele[3]}</td>
 										<td>{ele[4]}</td>

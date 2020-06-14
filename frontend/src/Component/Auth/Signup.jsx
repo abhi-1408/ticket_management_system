@@ -12,7 +12,7 @@ export const Signup = (props) => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [name, setName] = useState('');
-	const [isAdmin, setAdmin] = useState('');
+	const [isAdmin, setAdmin] = useState('0');
 	const [phone, setPhone] = useState('');
 
 	function handleChg(e) {
@@ -62,14 +62,36 @@ export const Signup = (props) => {
 					onChange={(e) => handleChg(e)}
 					placeholder="name"
 				/>
-				<label>Admin</label>
-				<input
+				<label>Type</label>
+				{/* <input
 					className="form-control"
 					name="isAdmin"
 					value={isAdmin}
 					onChange={(e) => handleChg(e)}
 					placeholder="admin 0/1"
-				/>
+				/> */}
+				<div className="form-control">
+					<div class="form-check form-check-inline">
+						<input
+							class="form-check-input"
+							type="radio"
+							name="isAdmin"
+							value="0"
+							onClick={(e) => handleChg(e)}
+						/>
+						<label class="form-check-label">Normal User</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<input
+							class="form-check-input"
+							type="radio"
+							name="isAdmin"
+							value="1"
+							onClick={(e) => handleChg(e)}
+						/>
+						<label class="form-check-label">Admin</label>
+					</div>
+				</div>
 				<label>Phone</label>
 				<input
 					className="form-control"

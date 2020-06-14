@@ -6,7 +6,7 @@
 
 ## Features
 
-- [x] dummy data
+- [x] db schema and db configured
 - [x] user/admin functionality
 - [x] add comments/reply
 - [x] create new ticket
@@ -15,10 +15,11 @@
 - [x] register page
 - [x] visualization
 - [x] add company functionality
-- [ ] categorize according to it
-- [ ] sorting,filtering
+- [x] categorize according to it
+- [x] user details add to ticket thread
+- [x] sorting,
+- [ ] filtering
 - [ ] seperation of redux
-- [ ] user details add to ticket thread
 
 ### FRONTEND:
 

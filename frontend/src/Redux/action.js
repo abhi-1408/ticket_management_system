@@ -334,3 +334,27 @@ export const fetchCompanyList = (payload) => {
 			.catch((err) => console.log('cant send data to charts', err));
 	};
 };
+
+export const createNewCompany = (payload) => {
+	console.log('create company clicked', payload);
+	return (dispatch) => {
+		return axios({
+			url: 'http://127.0.0.1:5000/newcompany',
+			method: 'POST',
+			data: payload,
+		})
+			.then((res) => {
+				dispatch(fetchCompanyList());
+			})
+			.catch((err) => {
+				console.log('cant send data to create', err);
+			});
+	};
+};
+
+export const sortTicket = (payload) => {
+	return {
+		type: 'SORT_TICKET',
+		payload: payload,
+	};
+};

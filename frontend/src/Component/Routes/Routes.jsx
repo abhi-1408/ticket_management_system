@@ -8,6 +8,7 @@ import {Signup} from '../Auth/Signup';
 import {Logout} from '../Auth/Logout';
 import {TicketView} from '../Common/TicketView';
 import {Create} from '../Common/Create';
+import {CreateNewCompany} from '../Admin/CreateNewCompany';
 
 import {Users} from '../User/Users';
 import {Charts} from '../Admin/Charts';
@@ -19,7 +20,7 @@ export const Routes = (props) => {
 			<br />
 			{!logged_in ? (
 				<>
-					<nav class="navbar navbar-light bg-light">
+					<nav class="navbar navbar-light bg-light mb-3">
 						<a class="navbar-brand" href="/">
 							HOME
 						</a>
@@ -75,6 +76,11 @@ export const Routes = (props) => {
 				<Route path="/signup" exact render={(props) => <Signup {...props} />} />
 				<Route path="/logout" exact render={(props) => <Logout {...props} />} />
 				<Route path="/admin/dashboard" exact render={(props) => <Charts />} />
+				<Route
+					path="/createcomp"
+					exact
+					render={(props) => <CreateNewCompany {...props} />}
+				/>
 				<Route
 					path="/create/:id"
 					exact

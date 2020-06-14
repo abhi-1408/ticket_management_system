@@ -20,6 +20,7 @@ export const initState = {
 	ticket_by_date: [],
 	tickets_status: [],
 	company_list: [],
+	sortStatus: false,
 };
 
 export default (state = initState, {type, payload}) => {
@@ -159,6 +160,60 @@ export default (state = initState, {type, payload}) => {
 			return {
 				...state,
 				company_list: payload.company_list,
+			};
+
+		case 'SORT_TICKET':
+			console.log('sorting in reducer');
+			let arr = state.all_ticket;
+			if (state.sortStatus) {
+				arr.sort(function (a, b) {
+					if (Number(a[1]) < Number(b[1])) {
+						return -1;
+					} else if (Number(a[1]) > Number(b[1])) {
+						return 1;
+					} else if (Number(a[1]) == Number(b[1])) {
+						return 0;
+					}
+				});
+			} else {
+				arr.sort(function (a, b) {
+					if (Number(a[1]) < Number(b[1])) {
+						return 1;
+					} else if (Number(a[1]) > Number(b[1])) {
+						return -1;
+					} else if (Number(a[1]) == Number(b[1])) {
+						return 0;
+					}
+				});
+			}
+
+			let pageSize11 = 3;
+			let count11 = 1;
+			let temp11 = [];
+			let page_all11 = [];
+			// to get the elements according to the page size and save in as an array of arrsys
+			for (let i = 0; i < arr.length; i++) {
+				if (count11 < pageSize11) {
+					temp11.push(arr[i]);
+					count11++;
+				} else if (count11 == pageSize11) {
+					temp11.push(arr[i]);
+					count11 = 1;
+					page_all11.push(temp11);
+					temp11 = [];
+				}
+			}
+			if (temp11.length > 0) {
+				page_all11.push(temp11);
+			}
+
+			return {
+				...state,
+				sortStatus: !state.sortStatus,
+				all_ticket: arr,
+				page_all_tickets: page_all11,
+				current_page: 1,
+				current_page_data: page_all11[0],
 			};
 
 		default:

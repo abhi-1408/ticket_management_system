@@ -22,7 +22,7 @@ export const Charts = (props) => {
 
 	return (
 		<div>
-			<nav class="navbar navbar-light bg-light text-center">CHARTS</nav>
+			<nav class="navbar navbar-light bg-light ">CHARTS</nav>
 			{/* <button onClick={() => handleClick()}>FETCH</button> */}
 			<div className="container">
 				<div className="row text-center">
@@ -105,13 +105,13 @@ export const Charts = (props) => {
 									responsive: true,
 								}}
 								data={{
-									labels: ['open', 'resolved'],
+									labels: ['resolved', 'open'],
 									datasets: [
 										{
 											label: 'tickets resolved/open',
 											backgroundColor: [
-												'rgba(255, 180, 158, 1)',
 												'rgba(173, 246, 168, 1)',
+												'rgba(255, 180, 158, 1)',
 											],
 											data: tickets_status[0],
 										},
