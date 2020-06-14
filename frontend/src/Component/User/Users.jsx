@@ -8,6 +8,7 @@ export const Users = (props) => {
 		logged_in,
 		current_userid,
 		user_tickets,
+		isAdmin,
 		current_user_detail,
 	} = useSelector((state) => state);
 
@@ -25,6 +26,7 @@ export const Users = (props) => {
 						<div className="col h3">
 							logged in user: {current_user_detail[0][1]}
 						</div>
+						<div className="col h3">{isAdmin == 0 ? 'User' : 'Admin'}</div>
 					</div>
 					<div className="row">
 						<div className="col h4">Phone: {current_user_detail[0][3]}</div>
@@ -52,6 +54,7 @@ export const Users = (props) => {
 								<th scope="col">Priority</th>
 								<th scope="col">Resolved</th>
 
+								<th scope="col">Company ID</th>
 								<th scope="col">Creation Time</th>
 								<th scope="col">SUBJECT</th>
 							</tr>
@@ -69,6 +72,7 @@ export const Users = (props) => {
 												<td>{ele[7]}</td>
 												<td>{ele[10]}</td>
 												<td>{ele[11]}</td>
+												<td>{ele[12]}</td>
 											</tr>
 										);
 									} else {
@@ -81,6 +85,7 @@ export const Users = (props) => {
 												<td>{ele[7]}</td>
 												<td>{ele[10]}</td>
 												<td>{ele[11]}</td>
+												<td>{ele[12]}</td>
 											</tr>
 										);
 									}

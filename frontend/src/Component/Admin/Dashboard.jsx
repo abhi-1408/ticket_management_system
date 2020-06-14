@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchAllTicket, setCurrentPage} from '../../Redux/action';
 import {Link} from 'react-router-dom';
+import {Charts} from './Charts';
 
 export const Dashboard = (props) => {
 	const {
@@ -29,7 +30,10 @@ export const Dashboard = (props) => {
 	}
 	return (
 		<div>
-			DASHBOARD
+			<button className="btn btn-warning my-2">
+				<Link to="/admin/dashboard">DASHBOARD</Link>
+			</button>
+
 			{/* <button className="btn btn-info" onClick={() => handleClick()}>
 				fetch
 			</button> */}
@@ -87,6 +91,7 @@ export const Dashboard = (props) => {
 						<th scope="col">Resolved</th>
 						<th scope="col">Priority</th>
 						<th scope="col">Created by User ID</th>
+						<th scope="col">Company ID</th>
 						<th scope="col">Creation Time</th>
 						<th scope="col">Subject</th>
 					</tr>
@@ -106,6 +111,7 @@ export const Dashboard = (props) => {
 										<td>{ele[3]}</td>
 										<td>{ele[4]}</td>
 										<td>{ele[5]}</td>
+										<td>{ele[6]}</td>
 									</tr>
 								);
 							} else {
@@ -120,6 +126,7 @@ export const Dashboard = (props) => {
 										<td>{ele[3]}</td>
 										<td>{ele[4]}</td>
 										<td>{ele[5]}</td>
+										<td>{ele[6]}</td>
 									</tr>
 								);
 							}

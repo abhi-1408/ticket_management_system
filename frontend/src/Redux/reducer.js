@@ -16,6 +16,9 @@ export const initState = {
 	current_page_data: [],
 	page_size: 3,
 	register_success: 0,
+	ticket_respective_company: [],
+	ticket_by_date: [],
+	tickets_status: [],
 };
 
 export default (state = initState, {type, payload}) => {
@@ -39,8 +42,9 @@ export default (state = initState, {type, payload}) => {
 					temp = [];
 				}
 			}
-
-			page_all.push(temp);
+			if (temp.length > 0) {
+				page_all.push(temp);
+			}
 			// let no_of_pages=page_all.length
 			return {
 				...state,
@@ -139,6 +143,14 @@ export default (state = initState, {type, payload}) => {
 				ticket_details: payload['user_ticket'],
 				current_ticket_id: payload['ticket_id'],
 				current_ticket_resolved: payload['ticket_resolved'],
+			};
+
+		case 'LOAD_CHART_SUCCESS':
+			return {
+				...state,
+				ticket_respective_company: payload.ticket_respective_company,
+				ticket_by_date: payload.ticket_by_date,
+				tickets_status: payload.tickets_status,
 			};
 
 		default:

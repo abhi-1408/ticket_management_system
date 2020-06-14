@@ -11,6 +11,7 @@ export const TicketView = (props) => {
 		current_ticket_resolved,
 	} = useSelector((state) => state);
 
+	//for description,storing reply
 	const [desc, setDesc] = useState('');
 	let dispatch = useDispatch();
 
@@ -97,19 +98,22 @@ export const TicketView = (props) => {
 										<div className="col">
 											<div class="card" style={{width: '22rem'}}>
 												<div class="card-header bg-secondary text-white">
-													Subject: {ele[5]}
+													Subject: {ele[6]}
 												</div>
 												<div class="card-body text-left">
 													<ul class="list-group list-group-flush text-muted">
 														<li class="list-group-item">
-															comment id: {ele[6]}
+															comment id: {ele[7]}
 														</li>
 														<li class="list-group-item">priority: {ele[2]}</li>
 														<li class="list-group-item">
-															user id who made comment: {ele[9]}
+															user id who made comment: {ele[10]}
 														</li>
 														<li class="list-group-item">
-															comment time: {ele[8]}
+															comment time: {ele[9]}
+														</li>
+														<li class="list-group-item">
+															company id: {ele[4]}
 														</li>
 													</ul>
 													{/* </div> */}
@@ -129,7 +133,7 @@ export const TicketView = (props) => {
 													<div class="card-body">
 														{/* <hr /> */}
 														<h5 class="card-title text-justify">
-															comment: {ele[10]}
+															comment: {ele[11]}
 														</h5>
 													</div>
 												</div>

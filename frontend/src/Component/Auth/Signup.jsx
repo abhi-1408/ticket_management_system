@@ -40,6 +40,7 @@ export const Signup = (props) => {
 			})
 		);
 
+		//this is for as if the status changes it should redirect back to login page
 		setTimeout(() => {
 			dispatch(registerReset());
 			props.history.push('/login');

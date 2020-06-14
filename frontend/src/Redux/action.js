@@ -19,7 +19,10 @@ export const fetchAllTicket = (payload) => {
 				console.log('data got from axios request: ', res);
 				return res;
 			})
-			.then((res) => dispatch(allTicketSuccess(res.data.all_ticket)))
+			.then((res) => {
+				// dispatch(loadChartsData());
+				dispatch(allTicketSuccess(res.data.all_ticket));
+			})
 			.catch((err) => console.log('cant send data to create', err));
 	};
 };
@@ -59,7 +62,10 @@ export const createTicket = (payload) => {
 				console.log('data got from create ticket: ', res);
 				return res;
 			})
-			.then((res) => dispatch(fetchSpecificUserTicket(payload['user_id'])))
+			.then((res) => {
+				dispatch(fetchSpecificUserTicket(payload['user_id']));
+				// dispatch(loadChartsData());
+			})
 			.catch((err) => console.log('cant send data to create', err));
 	};
 };
@@ -110,6 +116,7 @@ export const chgStatus = (payload) => {
 			data: {resolved: resolved},
 		})
 			.then((res) => {
+				// dispatch(loadChartsData());
 				dispatch(fetchSpecificUserTicket(payload['current_userid']));
 				dispatch(fetchSpecificTicket(payload['ticket_id']));
 			})
@@ -269,5 +276,36 @@ export const registerUser = (payload) => {
 					console.log('cant send data to create', err);
 				})
 		);
+	};
+};
+
+export const loadChartSuccess = (payload) => {
+	return {
+		type: 'LOAD_CHART_SUCCESS',
+		payload: payload,
+	};
+};
+
+export const loadChartsData = (payload) => {
+	console.log('load chart data called', payload);
+	return (dispatch) => {
+		return axios({
+			url: 'http://127.0.0.1:5000/chart',
+			method: 'GET',
+		})
+			.then((res) => {
+				console.log('***************LOADING CHART DATA : ', res);
+				return res;
+			})
+			.then((res) => {
+				dispatch(
+					loadChartSuccess({
+						ticket_respective_company: res.data.ticket_respective_company,
+						ticket_by_date: res.data.ticket_by_date,
+						tickets_status: res.data.tickets_status,
+					})
+				);
+			})
+			.catch((err) => console.log('cant send data to charts', err));
 	};
 };

@@ -10,6 +10,7 @@ export const Create = (props) => {
 	const [resolved, setResolved] = useState('');
 	const [priority, setPriority] = useState('');
 	const [description, setDescription] = useState('');
+	const [company_id, setCompId] = useState('');
 
 	function handleChg(e) {
 		if (e.target.name == 'subject') {
@@ -20,6 +21,8 @@ export const Create = (props) => {
 			setResolved(e.target.value);
 		} else if (e.target.name == 'priority') {
 			setPriority(e.target.value);
+		} else if (e.target.name == 'company_id') {
+			setCompId(e.target.value);
 		}
 	}
 
@@ -40,6 +43,7 @@ export const Create = (props) => {
 					resolved: resolved,
 					priority: priority,
 					user_id: current_userid,
+					company_id: company_id,
 					creation_time: creation_time,
 				},
 			})
@@ -57,6 +61,14 @@ export const Create = (props) => {
 				value={subject}
 				onChange={(e) => handleChg(e)}
 				placeholder="subject"
+			/>
+			<label>Company ID</label>
+			<input
+				className="form-control"
+				name="company_id"
+				value={company_id}
+				onChange={(e) => handleChg(e)}
+				placeholder="company id 10000,10001,.."
 			/>
 			<label>Description</label>
 			<input

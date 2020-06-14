@@ -3,8 +3,11 @@ from flask_mysqldb import MySQL
 import json
 import jwt
 from flask import request
+from flask_cors import CORS
+# app = Flask(__name__)
 
 app=Flask(__name__)
+CORS(app) 
 app.config['MYSQL_HOST']='localhost'
 app.config['MYSQL_USER']='root'
 app.config['MYSQL_PASSWORD']='rootpass'
@@ -181,29 +184,47 @@ def chart():
     cur.execute('''select count(ticket_id),name from ticket right join company on ticket.company_id=company.company_id GROUP BY company.company_id;''')
     result=cur.fetchall()
     data=[]
+    f_data=[]
+    s_data=[]
     for row in result:
-        data.append(row)
+        f_data.append(row[0])
+        s_data.append(row[1])
 
-    
+    data.append(f_data)
+    data.append(s_data)
+
+    # print('data changed to',data)
+
     cur.execute('''select count(*),DATE(creation_time) from ticket GROUP BY DATE(creation_time);
 ''')
     result1=cur.fetchall()
     data1=[]
+    f_data1=[]
+    s_data1=[]
     for row in result1:
-        data1.append(row)
+        f_data1.append(row[0])
+        s_data1.append(row[1])
 
+    data1.append(f_data1)
+    data1.append(s_data1)
 
     cur.execute('''select count(*),resolved from ticket group by resolved;''')
     result2=cur.fetchall()
     data2=[]
+    f_data2=[]
+    s_data2=[]
     for row in result2:
-        data2.append(row)
+        f_data2.append(row[0])
+        s_data2.append(row[1])
+
+    data2.append(f_data2)
+    data2.append(s_data2)
 
 
     cur.close()
 
 
-    return {'ticket_respective_company':data,"ticket_by_date":data1,"ticket_resolved_or_not":data2}
+    return {'ticket_respective_company':data,"ticket_by_date":data1,"tickets_status":data2}
 
 
 

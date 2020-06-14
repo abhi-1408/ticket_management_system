@@ -10,6 +10,7 @@ import {TicketView} from '../Common/TicketView';
 import {Create} from '../Common/Create';
 
 import {Users} from '../User/Users';
+import {Charts} from '../Admin/Charts';
 
 export const Routes = (props) => {
 	const {logged_in, current_userid, isAdmin} = useSelector((state) => state);
@@ -64,6 +65,7 @@ export const Routes = (props) => {
 				<Route path="/login" exact render={(props) => <Login />} />
 				<Route path="/signup" exact render={(props) => <Signup {...props} />} />
 				<Route path="/logout" exact render={(props) => <Logout {...props} />} />
+				<Route path="/admin/dashboard" exact render={(props) => <Charts />} />
 				<Route
 					path="/create/:id"
 					exact

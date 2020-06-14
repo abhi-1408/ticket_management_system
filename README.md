@@ -13,11 +13,11 @@
 - [x] close/open a existing ticket
 - [x] pagination
 - [x] register page
+- [x] visualization
 - [ ] sorting,filtering
 - [ ] seperation of redux
 - [ ] add company functionality and categorize according to it
 - [ ] user details add to ticket thread
-- [ ] visualization
 
 ### FRONTEND:
 
