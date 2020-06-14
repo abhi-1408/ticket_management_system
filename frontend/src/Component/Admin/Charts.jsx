@@ -22,8 +22,8 @@ export const Charts = (props) => {
 
 	return (
 		<div>
-			<h2>charts</h2>
-			<button onClick={() => handleClick()}>FETCH</button>
+			<nav class="navbar navbar-light bg-light text-center">CHARTS</nav>
+			{/* <button onClick={() => handleClick()}>FETCH</button> */}
 			<div className="container">
 				<div className="row text-center">
 					<div className="col">
@@ -57,6 +57,21 @@ export const Charts = (props) => {
 							/>
 						</div>
 					</div>
+					<div className="col my-5 py-4">
+						<h4>
+							Total Tickets : {tickets_status[0] && tickets_status[0].length}
+						</h4>
+						<h4>
+							Total Tickets Today :
+							{ticket_by_date[1] &&
+								ticket_by_date[0][ticket_by_date[0].length - 1]}
+						</h4>
+						<h4>
+							Total Companies :
+							{ticket_respective_company[1] &&
+								ticket_respective_company[1].length}
+						</h4>
+					</div>
 				</div>
 				<div className="row">
 					<div className="col">
@@ -84,7 +99,7 @@ export const Charts = (props) => {
 					</div>
 					<div className="col">
 						<div style={{position: 'relative', width: 600, height: 500}}>
-							<h3>datas</h3>
+							{/* <h3>datas</h3> */}
 							<Pie
 								options={{
 									responsive: true,

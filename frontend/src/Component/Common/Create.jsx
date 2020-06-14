@@ -4,13 +4,13 @@ import {createTicket} from '../../Redux/action';
 import {Link, Redirect} from 'react-router-dom';
 
 export const Create = (props) => {
-	const {current_userid} = useSelector((state) => state);
+	const {current_userid, company_list} = useSelector((state) => state);
 
 	const [subject, setSubject] = useState('');
 	const [resolved, setResolved] = useState('');
 	const [priority, setPriority] = useState('');
 	const [description, setDescription] = useState('');
-	const [company_id, setCompId] = useState('');
+	const [company_id, setCompId] = useState('10000');
 
 	function handleChg(e) {
 		if (e.target.name == 'subject') {
@@ -63,13 +63,15 @@ export const Create = (props) => {
 				placeholder="subject"
 			/>
 			<label>Company ID</label>
-			<input
+			<select
 				className="form-control"
 				name="company_id"
-				value={company_id}
 				onChange={(e) => handleChg(e)}
-				placeholder="company id 10000,10001,.."
-			/>
+			>
+				{company_list.map((ele) => {
+					return <option value={ele[1]}>{ele[0]}</option>;
+				})}
+			</select>
 			<label>Description</label>
 			<input
 				className="form-control"

@@ -14,9 +14,10 @@
 - [x] pagination
 - [x] register page
 - [x] visualization
+- [x] add company functionality
+- [ ] categorize according to it
 - [ ] sorting,filtering
 - [ ] seperation of redux
-- [ ] add company functionality and categorize according to it
 - [ ] user details add to ticket thread
 
 ### FRONTEND:

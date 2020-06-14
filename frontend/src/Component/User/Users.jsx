@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchSpecificUserTicket} from '../../Redux/action';
 import {Link, Redirect} from 'react-router-dom';
+import {Charts} from '../Admin/Charts';
 
 export const Users = (props) => {
 	const {
@@ -46,6 +47,13 @@ export const Users = (props) => {
 					{/* <button className="btn btn-info" onClick={() => handleClick()}>
 					fetch user tickets{current_userid}{' '}
 				</button> */}
+					{isAdmin == 1 ? (
+						<div>
+							<Charts />
+						</div>
+					) : (
+						<div></div>
+					)}
 
 					<table class="table my-5">
 						<thead class="thead-dark">

@@ -241,6 +241,20 @@ def new_comp():
     return json.dumps({'company added':True})
 
 
+@app.route('/companylist',methods=['GET'])
+def get_compy():
+    
+    cur=mysql.connection.cursor()
+    cur.execute('''select distinct(name),company_id from company;''')
+    result=cur.fetchall()
+    data=[]
+    for row in result:
+        data.append(row)
+    
+    cur.close()
+    return json.dumps({'company_list':data})
+
+
 
 
 #     //for getting all company name

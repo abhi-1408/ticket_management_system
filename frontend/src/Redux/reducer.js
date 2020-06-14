@@ -19,6 +19,7 @@ export const initState = {
 	ticket_respective_company: [],
 	ticket_by_date: [],
 	tickets_status: [],
+	company_list: [],
 };
 
 export default (state = initState, {type, payload}) => {
@@ -151,6 +152,13 @@ export default (state = initState, {type, payload}) => {
 				ticket_respective_company: payload.ticket_respective_company,
 				ticket_by_date: payload.ticket_by_date,
 				tickets_status: payload.tickets_status,
+			};
+
+		case 'FETCH_COMPANY_LIST':
+			console.log('*****************fectch company list reducer');
+			return {
+				...state,
+				company_list: payload.company_list,
 			};
 
 		default:

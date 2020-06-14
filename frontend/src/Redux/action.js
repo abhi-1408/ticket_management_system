@@ -21,6 +21,7 @@ export const fetchAllTicket = (payload) => {
 			})
 			.then((res) => {
 				// dispatch(loadChartsData());
+				dispatch(fetchCompanyList());
 				dispatch(allTicketSuccess(res.data.all_ticket));
 			})
 			.catch((err) => console.log('cant send data to create', err));
@@ -45,7 +46,10 @@ export const fetchSpecificUserTicket = (payload) => {
 				console.log('data got from specific fetch user ticket request: ', res);
 				return res;
 			})
-			.then((res) => dispatch(specificUserTicketSuccess(res.data.user_tickets)))
+			.then((res) => {
+				dispatch(fetchCompanyList());
+				dispatch(specificUserTicketSuccess(res.data.user_tickets));
+			})
 			.catch((err) => console.log('cant send data to create', err));
 	};
 };
@@ -305,6 +309,27 @@ export const loadChartsData = (payload) => {
 						tickets_status: res.data.tickets_status,
 					})
 				);
+			})
+			.catch((err) => console.log('cant send data to charts', err));
+	};
+};
+
+export const fetchCompanySuccess = (payload) => {
+	return {
+		type: 'FETCH_COMPANY_LIST',
+		payload: payload,
+	};
+};
+
+export const fetchCompanyList = (payload) => {
+	console.log('load chart data called', payload);
+	return (dispatch) => {
+		return axios({
+			url: 'http://127.0.0.1:5000/companylist',
+			method: 'GET',
+		})
+			.then((res) => {
+				dispatch(fetchCompanySuccess(res.data));
 			})
 			.catch((err) => console.log('cant send data to charts', err));
 	};

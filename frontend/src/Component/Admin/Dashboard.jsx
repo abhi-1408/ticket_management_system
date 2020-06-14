@@ -30,10 +30,6 @@ export const Dashboard = (props) => {
 	}
 	return (
 		<div>
-			<button className="btn btn-warning my-2">
-				<Link to="/admin/dashboard">DASHBOARD</Link>
-			</button>
-
 			{/* <button className="btn btn-info" onClick={() => handleClick()}>
 				fetch
 			</button> */}
