@@ -7,8 +7,8 @@ export const Create = (props) => {
 	const {current_userid, company_list} = useSelector((state) => state);
 
 	const [subject, setSubject] = useState('');
-	const [resolved, setResolved] = useState('');
-	const [priority, setPriority] = useState('');
+	const [resolved, setResolved] = useState('0');
+	const [priority, setPriority] = useState('low');
 	const [description, setDescription] = useState('');
 	const [company_id, setCompId] = useState('10000');
 
@@ -81,21 +81,75 @@ export const Create = (props) => {
 				placeholder="description"
 			/>
 			<label>Resolved</label>
-			<input
+			{/* <input
 				className="form-control"
 				name="resolved"
 				value={resolved}
 				onChange={(e) => handleChg(e)}
 				placeholder="resolved 0/1"
-			/>
+			/> */}
+			<div className="form-control">
+				<div class="form-check form-check-inline">
+					<input
+						class="form-check-input"
+						type="radio"
+						name="resolved"
+						value="0"
+						onClick={(e) => handleChg(e)}
+					/>
+					<label class="form-check-label">No</label>
+				</div>
+				<div class="form-check form-check-inline">
+					<input
+						class="form-check-input"
+						type="radio"
+						name="resolved"
+						value="1"
+						onClick={(e) => handleChg(e)}
+					/>
+					<label class="form-check-label">Yes</label>
+				</div>
+			</div>
 			<label>Priority</label>
-			<input
+			{/* <input
 				className="form-control"
 				name="priority"
 				value={priority}
 				onChange={(e) => handleChg(e)}
 				placeholder="priority"
-			/>
+			/> */}
+			<div className="form-control">
+				<div class="form-check form-check-inline">
+					<input
+						class="form-check-input"
+						type="radio"
+						name="priority"
+						value="low"
+						onClick={(e) => handleChg(e)}
+					/>
+					<label class="form-check-label">Low</label>
+				</div>
+				<div class="form-check form-check-inline">
+					<input
+						class="form-check-input"
+						type="radio"
+						name="priority"
+						value="medium"
+						onClick={(e) => handleChg(e)}
+					/>
+					<label class="form-check-label">Medium</label>
+				</div>
+				<div class="form-check form-check-inline">
+					<input
+						class="form-check-input"
+						type="radio"
+						name="priority"
+						value="high"
+						onClick={(e) => handleChg(e)}
+					/>
+					<label class="form-check-label">High</label>
+				</div>
+			</div>
 			<button className="btn btn-success " onClick={() => handleClick()}>
 				CREATE
 			</button>

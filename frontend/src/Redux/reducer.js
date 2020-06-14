@@ -21,6 +21,7 @@ export const initState = {
 	tickets_status: [],
 	company_list: [],
 	sortStatus: false,
+	company_dict: {},
 };
 
 export default (state = initState, {type, payload}) => {
@@ -156,10 +157,21 @@ export default (state = initState, {type, payload}) => {
 			};
 
 		case 'FETCH_COMPANY_LIST':
-			console.log('*****************fectch company list reducer');
+			let dict1 = {};
+			let tt = payload.company_list;
+			for (let i = 0; i < tt.length; i++) {
+				dict1[tt[i][1]] = tt[i][0];
+			}
+
+			console.log(
+				'*****************fectch company list reducer',
+				dict1,
+				dict1['10000']
+			);
 			return {
 				...state,
 				company_list: payload.company_list,
+				company_dict: dict1,
 			};
 
 		case 'SORT_TICKET':
@@ -187,33 +199,33 @@ export default (state = initState, {type, payload}) => {
 				});
 			}
 
-			let pageSize11 = 3;
-			let count11 = 1;
-			let temp11 = [];
-			let page_all11 = [];
+			let s_pageSize = 3;
+			let s_count = 1;
+			let s_temp = [];
+			let s_page_all = [];
 			// to get the elements according to the page size and save in as an array of arrsys
 			for (let i = 0; i < arr.length; i++) {
-				if (count11 < pageSize11) {
-					temp11.push(arr[i]);
-					count11++;
-				} else if (count11 == pageSize11) {
-					temp11.push(arr[i]);
-					count11 = 1;
-					page_all11.push(temp11);
-					temp11 = [];
+				if (s_count < s_pageSize) {
+					s_temp.push(arr[i]);
+					s_count++;
+				} else if (s_count == s_pageSize) {
+					s_temp.push(arr[i]);
+					s_count = 1;
+					s_page_all.push(s_temp);
+					s_temp = [];
 				}
 			}
-			if (temp11.length > 0) {
-				page_all11.push(temp11);
+			if (s_temp.length > 0) {
+				s_page_all.push(s_temp);
 			}
 
 			return {
 				...state,
 				sortStatus: !state.sortStatus,
 				all_ticket: arr,
-				page_all_tickets: page_all11,
+				page_all_tickets: s_page_all,
 				current_page: 1,
-				current_page_data: page_all11[0],
+				current_page_data: s_page_all[0],
 			};
 
 		default:

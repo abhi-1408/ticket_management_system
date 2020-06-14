@@ -12,6 +12,7 @@ export const Dashboard = (props) => {
 		page_size,
 		current_page_data,
 		sortStatus,
+		company_dict,
 	} = useSelector((state) => state);
 
 	const dispatch = useDispatch();
@@ -71,7 +72,7 @@ export const Dashboard = (props) => {
 										<td>open</td>
 										<td>{ele[2]}</td>
 										<td>{ele[3]}</td>
-										<td>{ele[4]}</td>
+										<td>{company_dict[ele[4]]}</td>
 										<td>{ele[5]}</td>
 										<td>{ele[6]}</td>
 									</tr>
@@ -86,7 +87,7 @@ export const Dashboard = (props) => {
 										<td>resolved</td>
 										<td>{ele[2]}</td>
 										<td>{ele[3]}</td>
-										<td>{ele[4]}</td>
+										<td>{company_dict[ele[4]]}</td>
 										<td>{ele[5]}</td>
 										<td>{ele[6]}</td>
 									</tr>

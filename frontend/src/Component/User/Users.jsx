@@ -11,6 +11,7 @@ export const Users = (props) => {
 		user_tickets,
 		isAdmin,
 		current_user_detail,
+		company_dict,
 	} = useSelector((state) => state);
 
 	let dispatch = useDispatch();
@@ -88,7 +89,7 @@ export const Users = (props) => {
 													</td>
 													<td>{ele[8]}</td>
 													<td>{ele[7]}</td>
-													<td>{ele[10]}</td>
+													<td>{company_dict[ele[10]]}</td>
 													<td>{ele[11]}</td>
 													<td>{ele[12]}</td>
 												</tr>
@@ -101,7 +102,7 @@ export const Users = (props) => {
 													</td>
 													<td>{ele[8]}</td>
 													<td>{ele[7]}</td>
-													<td>{ele[10]}</td>
+													<td>{company_dict[ele[10]]}</td>
 													<td>{ele[11]}</td>
 													<td>{ele[12]}</td>
 												</tr>
