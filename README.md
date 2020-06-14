@@ -15,8 +15,9 @@
 - [x] register page
 - [ ] sorting,filtering
 - [ ] seperation of redux
-- [ ] add company funcitonality and categorize according to it
+- [ ] add company functionality and categorize according to it
 - [ ] user details add to ticket thread
+- [ ] visualization
 
 ### FRONTEND:
 
@@ -39,8 +40,11 @@ npm start
 create your database:
 
 - mysql -u root -p 'password'
-- > CREATE DATABASE TICKET_DB; >use TICKET_DB; >CREATE TABLE user(user_id int NOT NULL AUTO_INCREMENT,name varchar(255),isAdmin int,phone int,email varchar(50),password varchar(30),PRIMARY KEY(user_id));
-- > CREATE TABLE ticket(ticket_id int NOT NULL AUTO_INCREMENT,resolved int,priority varchar(10),user_id int,creation_time datetime,subject varchar(255),PRIMARY KEY(ticket_id),FOREIGN KEY (user_id) REFERENCES user(user_id));
+- > CREATE DATABASE TICKET_DB;
+- > use TICKET_DB;
+- > CREATE TABLE user(user_id int NOT NULL AUTO_INCREMENT,name varchar(255),isAdmin int,phone int,email varchar(50),password varchar(30),PRIMARY KEY(user_id));
+- > CREATE TABLE company(company_id int NOT NULL AUTO_INCREMENT,name varchar(255),PRIMARY KEY (company_id));
+- > CREATE TABLE ticket(ticket_id int NOT NULL AUTO_INCREMENT,resolved int,priority varchar(10),user_id int,company_id int,creation_time datetime,subject varchar(255),PRIMARY KEY(ticket_id),FOREIGN KEY (user_id) REFERENCES user(user_id),FOREIGN KEY (company_id) REFERENCES company(company_id));
 - > CREATE TABLE data(id int NOT NULL AUTO_INCREMENT,ticket_id int,comment_date datetime,commentby int,description varchar(255),PRIMARY KEY(id),FOREIGN KEY (ticket_id) REFERENCES ticket(ticket_id),FOREIGN KEY (commentby) REFERENCES user(user_id));
 
 - start your local server:

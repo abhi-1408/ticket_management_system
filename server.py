@@ -110,11 +110,12 @@ def add_new_ticket(user_id):
     subject=request.json['subject']
     resolved=request.json['resolved']
     priority=request.json['priority']
+    company_id=request.json['company_id']
     user_id=request.json['user_id']
     creation_time=request.json['creation_time']
     cur=mysql.connection.cursor()
-    stmt="INSERT INTO ticket(resolved,priority,user_id,creation_time,subject) VALUES(%s,%s,%s,%s,%s)"
-    data=(resolved,priority,user_id,creation_time,subject)
+    stmt="INSERT INTO ticket(resolved,priority,user_id,creation_time,subject,company_id) VALUES(%s,%s,%s,%s,%s,%s)"
+    data=(resolved,priority,user_id,creation_time,subject,company_id)
     cur.execute(stmt,data)
     mysql.connection.commit()
     cur.close()
@@ -156,7 +157,7 @@ def chg_status(ticket_id):
     cur.close()
     return 'done'
 
-
+# for signup
 @app.route('/signup',methods=['POST'])
 def signup():
     name=request.json['name']
@@ -171,3 +172,70 @@ def signup():
     mysql.connection.commit()
     cur.close()
     return json.dumps({'user_added':True})
+
+
+
+@app.route('/chart/')
+def chart():
+    cur=mysql.connection.cursor()
+    cur.execute('''select count(ticket_id),name from ticket right join company on ticket.company_id=company.company_id GROUP BY company.company_id;''')
+    result=cur.fetchall()
+    data=[]
+    for row in result:
+        data.append(row)
+
+    
+    cur.execute('''select count(*),DATE(creation_time) from ticket GROUP BY DATE(creation_time);
+''')
+    result1=cur.fetchall()
+    data1=[]
+    for row in result1:
+        data1.append(row)
+
+
+    cur.execute('''select count(*),resolved from ticket group by resolved;''')
+    result2=cur.fetchall()
+    data2=[]
+    for row in result2:
+        data2.append(row)
+
+
+    cur.close()
+
+
+    return {'ticket_respective_company':data,"ticket_by_date":data1,"ticket_resolved_or_not":data2}
+
+
+
+# create new company
+@app.route('/newcompany',methods=['POST'])
+def new_comp():
+    name=request.json['name']
+    cur=mysql.connection.cursor()
+    stmt="INSERT INTO company(name) VALUES(%s)"
+    data=([name])
+    cur.execute(stmt,data)
+    mysql.connection.commit()
+    cur.close()
+    return json.dumps({'company added':True})
+
+
+
+
+#     //for getting all company name
+# select distinct(name) from company;
+
+
+# //for visulixation need all tickets of respective companies
+# select count(*),name from ticket join company on ticket.company_id=company.company_id GROUP BY company.company_id ;
+
+# //for visualization need all tickets created in different dates
+# select count(*),DATE(creation_time) from ticket GROUP BY DATE(creation_time);
+
+
+# //all comment in one column with respective ticket_id
+# select count(*),ticket.subject,GROUP_CONCAT(data.description) from ticket join data where ticket.ticket_id=data.ticket_id GROUP BY ticket.ticket_id;
+
+
+# //for getting tickets resolved/unresolved
+# select count(*),resolved from ticket group by resolved;
