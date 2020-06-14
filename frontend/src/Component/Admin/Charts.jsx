@@ -59,7 +59,11 @@ export const Charts = (props) => {
 					</div>
 					<div className="col my-5 py-4">
 						<h4>
-							Total Tickets : {tickets_status[0] && tickets_status[0].length}
+							Total Tickets :{' '}
+							{tickets_status[0] &&
+								tickets_status[0].reduce(
+									(acc, curr) => Number(acc) + Number(curr)
+								)}
 						</h4>
 						<h4>
 							Total Tickets Today :
