@@ -44,7 +44,10 @@ export const Users = (props) => {
 							</Link>
 
 							{isAdmin == 1 ? (
-								<Link className="btn btn-info mx-2" to="/createcomp">
+								<Link
+									className="btn btn-info mx-2"
+									to={`/createcomp/${current_userid}`}
+								>
 									CREATE NEW COMPANY
 								</Link>
 							) : (

@@ -321,6 +321,13 @@ export const fetchCompanySuccess = (payload) => {
 	};
 };
 
+export const fetchCompanyResetFlag = (payload) => {
+	return {
+		type: 'FETCH_COMPANY_RESET_FLAG',
+		payload: payload,
+	};
+};
+
 export const fetchCompanyList = (payload) => {
 	console.log('load chart data called', payload);
 	return (dispatch) => {
@@ -345,6 +352,7 @@ export const createNewCompany = (payload) => {
 		})
 			.then((res) => {
 				dispatch(fetchCompanyList());
+				dispatch(fetchCompanyResetFlag(true));
 			})
 			.catch((err) => {
 				console.log('cant send data to create', err);

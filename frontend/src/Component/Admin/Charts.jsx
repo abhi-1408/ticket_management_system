@@ -46,10 +46,8 @@ export const Charts = (props) => {
 									datasets: [
 										{
 											label: 'No. of tickets on a particular day',
-											backgroundColor: [
-												'rgba(173, 246, 168, 1)',
-												'rgba(255, 180, 158, 1)',
-											],
+											borderColor: 'rgba(255, 99, 132, 1)',
+											fill: false,
 											data: ticket_by_date[0],
 										},
 									],
@@ -91,6 +89,10 @@ export const Charts = (props) => {
 										{
 											label: 'No. of tickets of a particular company',
 											backgroundColor: [
+												'rgba(255, 220, 142, 1)',
+												'rgba(251, 173, 255, 1)',
+												'rgba(251, 166, 169, 1)',
+												'rgba(151, 250, 234, 1)',
 												'rgba(173, 246, 168, 1)',
 												'rgba(255, 180, 158, 1)',
 											],

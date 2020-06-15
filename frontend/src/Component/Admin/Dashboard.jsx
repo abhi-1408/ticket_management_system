@@ -63,20 +63,37 @@ export const Dashboard = (props) => {
 					current_page_data.map(
 						(ele, ind) => {
 							if (ele[1] == 0) {
-								return (
-									<tr style={{color: 'red'}}>
-										<td>
-											<Link to={`/target/${ele[0]}`}> {ele[0]}</Link>
-										</td>
+								if (ele[2] == 'high') {
+									return (
+										<tr style={{color: 'red'}}>
+											<td>
+												<Link to={`/target/${ele[0]}`}> {ele[0]}</Link>
+											</td>
 
-										<td>open</td>
-										<td>{ele[2]}</td>
-										<td>{ele[3]}</td>
-										<td>{company_dict[ele[4]]}</td>
-										<td>{ele[5]}</td>
-										<td>{ele[6]}</td>
-									</tr>
-								);
+											<td>open</td>
+											<td>{ele[2]}</td>
+											<td>{ele[3]}</td>
+											<td>{company_dict[ele[4]]}</td>
+											<td>{ele[5]}</td>
+											<td>{ele[6]}</td>
+										</tr>
+									);
+								} else {
+									return (
+										<tr style={{color: 'blue'}}>
+											<td>
+												<Link to={`/target/${ele[0]}`}> {ele[0]}</Link>
+											</td>
+
+											<td>open</td>
+											<td>{ele[2]}</td>
+											<td>{ele[3]}</td>
+											<td>{company_dict[ele[4]]}</td>
+											<td>{ele[5]}</td>
+											<td>{ele[6]}</td>
+										</tr>
+									);
+								}
 							} else {
 								return (
 									<tr style={{color: 'green'}}>

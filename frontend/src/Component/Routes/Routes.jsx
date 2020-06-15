@@ -77,7 +77,7 @@ export const Routes = (props) => {
 				<Route path="/logout" exact render={(props) => <Logout {...props} />} />
 				<Route path="/admin/dashboard" exact render={(props) => <Charts />} />
 				<Route
-					path="/createcomp"
+					path="/createcomp/:id"
 					exact
 					render={(props) => <CreateNewCompany {...props} />}
 				/>

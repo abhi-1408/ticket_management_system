@@ -14,7 +14,7 @@ export const initState = {
 	page_all_tickets: [{}],
 	current_page: 1,
 	current_page_data: [],
-	page_size: 3,
+	page_size: 4,
 	register_success: 0,
 	ticket_respective_company: [],
 	ticket_by_date: [],
@@ -22,6 +22,7 @@ export const initState = {
 	company_list: [],
 	sortStatus: false,
 	company_dict: {},
+	company_add_flag: false,
 };
 
 export default (state = initState, {type, payload}) => {
@@ -29,7 +30,7 @@ export default (state = initState, {type, payload}) => {
 
 	switch (type) {
 		case ALL_TICKETS:
-			let pageSize = 3;
+			let pageSize = 4;
 			let count = 1;
 			let temp = [];
 			let page_all = [];
@@ -174,6 +175,12 @@ export default (state = initState, {type, payload}) => {
 				company_dict: dict1,
 			};
 
+		case 'FETCH_COMPANY_RESET_FLAG':
+			return {
+				...state,
+				company_add_flag: payload,
+			};
+
 		case 'SORT_TICKET':
 			console.log('sorting in reducer');
 			let arr = state.all_ticket;
@@ -199,7 +206,7 @@ export default (state = initState, {type, payload}) => {
 				});
 			}
 
-			let s_pageSize = 3;
+			let s_pageSize = 4;
 			let s_count = 1;
 			let s_temp = [];
 			let s_page_all = [];
